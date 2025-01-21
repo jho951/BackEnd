@@ -8,5 +8,4 @@
 <img  src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
 <img  src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img  src="https://img.shields.io/badge/githubactions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
 </div>
