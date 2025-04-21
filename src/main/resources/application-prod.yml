@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db-host/db
+    driver-class-name: org.h2.Driver
+    username: produser
+    password: securepassword
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: logs/app-prod.log

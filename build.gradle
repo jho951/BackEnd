@@ -25,30 +25,25 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'org.springdoc:springdoc-openapi-ui:2.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	implementation 'com.github.nixxcode:logback-access-spring-boot-starter:3.0.0'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	runtimeOnly 'com.h2database:h2'
-	//필요한 라이브러리 설치를 위해 가장 일반적으로 사용하는 설정
-	// 해당 라이브러리가 변경되더라도 이 라이브러리와 연관된 모든 모듈을 컴파일하지 않고 변경된 내용과 관련이 있는 모듈만 컴파일하므로 프로젝트를 리빌드(rebuild)하는 속도가 빠르다.
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	// Junit을 사용할 때 설정
-	testImplementation 'org.junit.jupiter:junit-jupiter'
-	// 해당 라이브러리가 테스트 실행 시에만 사용
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	// 타임리프 사용 시
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-	// 스프링 부트 validation , 폼 클래스를 사용해 사용자로부터 입력받은 값을 검증
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	// 스프링 시큐리티
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-}
 
+
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }

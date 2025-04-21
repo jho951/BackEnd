@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: sbb
+  profiles:
+    active: local
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+logging:
+  config: classpath:logback/logback-spring.xml
