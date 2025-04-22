@@ -16,6 +16,7 @@ build/
 # Env
 .env
 *.env
+application-secret.yml
 
 # IntelliJ
 .idea
@@ -29,3 +30,4 @@ data/
 
 # Docs or helpers
 HELP.md
+

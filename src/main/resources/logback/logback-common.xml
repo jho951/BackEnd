@@ -1,0 +1,26 @@
+<configuration>
+    <!-- 공통 로그 경로 및 파일 설정 -->
+    <property name="LOG_PATH" value="logs"/>
+    <property name="LOG_FILE" value="${LOG_PATH}/application.log"/>
+    <property name="ROLLING_PATTERN" value="${LOG_PATH}/app.%d{yyyy-MM-dd}.log"/>
+    <property name="MAX_HISTORY" value="30"/>
+
+    <!-- 패턴 통일을 위한 날짜 설정 -->
+    <property name="DATE_PATTERN" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+    <property name="ROLLING_DATE_PATTERN" value="yyyy-MM-dd"/>
+
+    <!-- 로그 파일 이름 분리-->
+    <property name="INFO_LOG_FILE" value="${LOG_PATH}/info.log"/>
+    <property name="ERROR_LOG_FILE" value="${LOG_PATH}/error.log"/>
+    <property name="WARN_LOG_FILE" value="${LOG_PATH}/warn.log"/>
+    <property name="DEBUG_LOG_FILE" value="${LOG_PATH}/debug.log"/>
+    <property name="TRACE_LOG_FILE" value="${LOG_PATH}/trace.log"/>
+
+    <!-- 콘솔 & 파일 출력용 로그 포맷 -->
+    <property name="CONSOLE_LOG_LOCAL_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n"/>
+    <property name="CONSOLE_LOG_PROD_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="CONSOLE_LOG_DATE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%ex{full}"/>
+    <property name="CONSOLE_LOG_DEBUG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) [%file:%line] - %msg%n"/>
+    <property name="CONSOLE_LOG_TEST_PATTERN" value="{&quot;timestamp&quot;:&quot;%d{ISO8601}&quot;,&quot;level&quot;:&quot;%level&quot;,&quot;logger&quot;:&quot;%logger&quot;,&quot;thread&quot;:&quot;%thread&quot;,&quot;message&quot;:&quot;%msg&quot;,&quot;exception&quot;:&quot;%ex&quot;}%n"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n%ex{full}"/>
+</configuration>

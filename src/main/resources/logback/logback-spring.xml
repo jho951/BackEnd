@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Spring Boot 기본(공통) 로깅 설정 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!-- 공통 설정 -->
+    <include resource="logback/logback-common.xml"/>
+
+    <!-- 로컬 시 적용 -->
+    <springProfile name="local">
+        <include resource="logback/logback-local.xml"/>
+    </springProfile>
+
+    <!-- 로컬 시 적용 -->
+    <springProfile name="prod">
+        <include resource="logback/logback-prod.xml"/>
+    </springProfile>
+
+    <!-- 테스트 시 적용 -->
+    <springProfile name="debug">
+        <include resource="logback/logback-debug.xml"/>
+    </springProfile>
+</configuration>
