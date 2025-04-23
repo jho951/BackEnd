@@ -34,7 +34,7 @@ public class SampleServiceImpl implements SampleService {
 			return SampleResponse.SampleCreateResponse.from(createSample);
 		} catch (DataIntegrityViolationException e) {
 			log.warn("제약 조건 위반: {}", e.getMessage(), e);
-			throw new BaseException(ErrorCode.NOT_EXIST_SAMPLE_DATA);
+			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
 			throw new BaseException(ErrorCode.INVALID_REQUEST_DATA);
 		}
@@ -49,7 +49,7 @@ public class SampleServiceImpl implements SampleService {
 			sampleRepository.save(dto.toUpdateEntity(updateSample));
 			return SampleResponse.SampleUpdateResponse.from(dto.toUpdateEntity(updateSample));
 		} catch (DataIntegrityViolationException e) {
-			throw new BaseException(ErrorCode.NOT_EXIST_SAMPLE_DATA);
+			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
 			throw new BaseException(ErrorCode.INVALID_REQUEST_DATA);
 		}
@@ -57,26 +57,35 @@ public class SampleServiceImpl implements SampleService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public SampleResponse.SampleReadListResponse read(Long id) {
+	public SampleResponse.SampleReadListResponse read(SampleRequest.SampleReadRequest dto) {
+		Long id = dto.toReadEntity().getId();
 		if (id == null) {
-			List<Sample> samples = sampleRepository.findAll();
-			return SampleResponse.SampleReadListResponse.from(samples);
-		} else {
-			Sample sample = sampleRepository.findById(id)
-				.orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_SAMPLE_DATA));
-			return SampleResponse.SampleReadListResponse.from(sample);
+			try {
+				List<Sample> samples = sampleRepository.findAll();
+				return SampleResponse.SampleReadListResponse.from(samples);
+			} catch (DataIntegrityViolationException e) {
+				throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			}
+		}else {
+			try {
+				Sample sample = sampleRepository.findById(id)
+					.orElseThrow(() -> new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA));
+				return SampleResponse.SampleReadListResponse.from(sample);
+			}catch (EntityNotFoundException e) {
+				throw new BaseException(ErrorCode.INVALID_TOKEN);
+			}
 		}
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public SampleResponse.SampleReadResponse readDetail(SampleRequest.SampleReadRequest dto) {
+	public SampleResponse.SampleReadResponse readDetail(Long id) {
 		try {
-			Sample readSample = sampleRepository.findById(dto.toReadEntity().getId())
+			Sample readSample = sampleRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Sample not found"));
 			return SampleResponse.SampleReadResponse.from(readSample);
 		}catch (DataIntegrityViolationException e){
-			throw new BaseException(ErrorCode.NOT_EXIST_SAMPLE_DATA);
+			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		}
 	}
 
@@ -89,7 +98,7 @@ public class SampleServiceImpl implements SampleService {
 			sampleRepository.delete(deleteSample);
 			return SampleResponse.SampleDeleteResponse.from(deleteSample);
 		}catch (DataIntegrityViolationException e){
-			throw new BaseException(ErrorCode.NOT_EXIST_SAMPLE_DATA);
+			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -21,15 +22,15 @@ import jakarta.persistence.GenerationType;
 
 import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserStatus;
-import src.global.common.entity.BaseAuthEntity;
+import src.global.common.entity.BaseEntity;
 
 @Entity
 @Getter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User extends BaseAuthEntity {
+public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -12,12 +12,12 @@ import src.global.common.dto.BaseResponseWrapper;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,16 +50,16 @@ public class SampleController {
     @Operation(summary = "sample read api", description = "sample entity를 가져옵니다.")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
     public BaseResponseWrapper<SampleResponse.SampleReadListResponse> read(
-        @RequestParam(required = false) Long id) {
-        SampleResponse.SampleReadListResponse response = sampleService.read(id);
+        @ModelAttribute @Valid SampleRequest.SampleReadRequest dto) {
+        SampleResponse.SampleReadListResponse response = sampleService.read(dto);
         return BaseResponseWrapper.ok(SuccessCode.SUCCESS, response);
     }
 
     @GetMapping("/read/detail/{id}")
     @Operation(summary = "sample read by id api", description = "해당 id의 sample entity를 가져옵니다.")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
-    public BaseResponseWrapper<SampleResponse.SampleReadResponse> readDetail(SampleRequest.SampleReadRequest dto) {
-        SampleResponse.SampleReadResponse response = sampleService.readDetail(dto);
+    public BaseResponseWrapper<SampleResponse.SampleReadResponse> readDetail(@PathVariable Long id) {
+        SampleResponse.SampleReadResponse response = sampleService.readDetail(id);
         return BaseResponseWrapper.ok(SuccessCode.SUCCESS, response);
     }
 

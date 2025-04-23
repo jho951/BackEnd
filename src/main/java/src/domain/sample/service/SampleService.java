@@ -8,9 +8,9 @@ public interface SampleService {
 
 	SampleResponse.SampleUpdateResponse update(SampleRequest.SampleUpdateRequest dto);
 
-	SampleResponse.SampleReadListResponse read(Long id);
+	SampleResponse.SampleReadListResponse read(SampleRequest.SampleReadRequest dto);
 
-	SampleResponse.SampleReadResponse readDetail(SampleRequest.SampleReadRequest dto);
+	SampleResponse.SampleReadResponse readDetail(Long id);
 
 	SampleResponse.SampleDeleteResponse delete(SampleRequest.SampleDeleteRequest dto);
 }

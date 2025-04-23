@@ -29,5 +29,5 @@ public class BaseAuthEntity extends BaseEntity {
 	private String modifiedBy;
 
 	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted;
+	private Boolean isDeleted = false;
 }

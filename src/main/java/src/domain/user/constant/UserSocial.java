@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum UserSocial {
 	GOOGLE("구글"),
-	KAKAO("카카오");
+	KAKAO("카카오"),
+	DEFAULT("기본");
 
 	private final String value;
 }
