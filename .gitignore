@@ -14,6 +14,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 
 # secret
+.env
 application-secret.yml
 
 # IntelliJ

@@ -3,10 +3,10 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: backend
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
     ports:
@@ -17,16 +17,11 @@ services:
       - backend
 
   backend:
-    image: openjdk:17-jdk
-    build: ./
+    build: .
     container_name: spring_boot_app
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb?useUnicode=true&character_set_server=utf8mb4
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
-      SPRING_PROFILES_ACTIVE: local
+      datasource.username: user
+      datasource.password: 1234
     ports:
       - "8080:8080"
     depends_on:
