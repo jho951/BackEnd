@@ -20,8 +20,10 @@ public abstract class BaseResponse {
 
 	@Version
 	private Long version;
+
 	@CreatedDate
 	private LocalDateTime createdAt;
+
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 }

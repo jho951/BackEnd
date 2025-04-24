@@ -1,9 +1,12 @@
 spring:
   datasource:
     url: jdbc:mysql://prod-db-host/db
-    driver-class-name: org.h2.Driver
-    username: produser
-    password: securepassword
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: user
+    password: 1234
+    hikari:
+      initialization-fail-timeout: 60000
+      connection-timeout: 20000
 
   jpa:
     hibernate:
@@ -11,9 +14,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-
-logging:
-  level:
-    root: INFO
-  file:
-    name: logs/app-prod.log

@@ -13,9 +13,7 @@ ehthumbs.db
 build/
 !gradle/wrapper/gradle-wrapper.jar
 
-# Env
-.env
-*.env
+# secret
 application-secret.yml
 
 # IntelliJ

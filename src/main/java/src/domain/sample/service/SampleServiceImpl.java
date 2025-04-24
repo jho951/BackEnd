@@ -17,7 +17,7 @@ import src.domain.sample.dto.SampleRequest;
 import src.domain.sample.dto.SampleResponse;
 import src.domain.sample.repository.SampleRepository;
 
-import src.global.exception.BaseException;
+import src.global.exception.GlobalException;
 import src.global.constant.code.ErrorCode;
 
 @Service
@@ -34,9 +34,9 @@ public class SampleServiceImpl implements SampleService {
 			return SampleResponse.SampleCreateResponse.from(createSample);
 		} catch (DataIntegrityViolationException e) {
 			log.warn("제약 조건 위반: {}", e.getMessage(), e);
-			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
-			throw new BaseException(ErrorCode.INVALID_REQUEST_DATA);
+			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
 		}
 	}
 
@@ -49,9 +49,9 @@ public class SampleServiceImpl implements SampleService {
 			sampleRepository.save(dto.toUpdateEntity(updateSample));
 			return SampleResponse.SampleUpdateResponse.from(dto.toUpdateEntity(updateSample));
 		} catch (DataIntegrityViolationException e) {
-			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
-			throw new BaseException(ErrorCode.INVALID_REQUEST_DATA);
+			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
 		}
 	}
 
@@ -64,15 +64,15 @@ public class SampleServiceImpl implements SampleService {
 				List<Sample> samples = sampleRepository.findAll();
 				return SampleResponse.SampleReadListResponse.from(samples);
 			} catch (DataIntegrityViolationException e) {
-				throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+				throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 			}
 		}else {
 			try {
 				Sample sample = sampleRepository.findById(id)
-					.orElseThrow(() -> new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA));
+					.orElseThrow(() -> new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA));
 				return SampleResponse.SampleReadListResponse.from(sample);
 			}catch (EntityNotFoundException e) {
-				throw new BaseException(ErrorCode.INVALID_TOKEN);
+				throw new GlobalException(ErrorCode.INVALID_TOKEN);
 			}
 		}
 	}
@@ -85,7 +85,7 @@ public class SampleServiceImpl implements SampleService {
 				.orElseThrow(() -> new EntityNotFoundException("Sample not found"));
 			return SampleResponse.SampleReadResponse.from(readSample);
 		}catch (DataIntegrityViolationException e){
-			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class SampleServiceImpl implements SampleService {
 			sampleRepository.delete(deleteSample);
 			return SampleResponse.SampleDeleteResponse.from(deleteSample);
 		}catch (DataIntegrityViolationException e){
-			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		}
 	}
 }

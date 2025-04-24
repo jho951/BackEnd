@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.Version;
@@ -19,9 +18,6 @@ import java.time.LocalDateTime;
 public abstract class BaseRequest {
 	@Version
 	private Long version;
-
-	@CreatedDate
-	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;

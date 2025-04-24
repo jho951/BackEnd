@@ -1,4 +1,4 @@
-package src.global.common.dto;
+package src.global.common.response;
 
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import src.global.constant.code.ErrorCode;
 import src.global.constant.code.SuccessCode;
 
 @Getter
-public final class BaseResponseWrapper<T> {
+public final class GlobalResponse<T> {
 	@Schema(description = "HTTP 상태 코드", example = "200")
 	private final HttpStatus httpStatus;
 	@Schema(description = "성공 여부", example = "true")
@@ -22,7 +22,7 @@ public final class BaseResponseWrapper<T> {
 	@Schema(description = "응답 데이터")
 	private final T data;
 
-	public BaseResponseWrapper(HttpStatus httpStatus, Boolean isSuccess, String message, int code, T data) {
+	public GlobalResponse(HttpStatus httpStatus, Boolean isSuccess, String message, int code, T data) {
 		if (httpStatus == null || message == null) {
 			throw new IllegalArgumentException("HTTP 상태와 메시지는 null일 수 없습니다.");
 		}
@@ -33,11 +33,11 @@ public final class BaseResponseWrapper<T> {
 		this.data = data;
 	}
 
-	public static <T> BaseResponseWrapper<T> ok(SuccessCode successCode, T data) {
+	public static <T> GlobalResponse<T> ok(SuccessCode successCode, T data) {
 		if (successCode == null || data == null) {
 			throw new IllegalArgumentException("HTTP 상태와 메시지는 null일 수 없습니다.");
 		}
-		return new BaseResponseWrapper<>(
+		return new GlobalResponse<>(
 			successCode.getHttpStatus(),
 			successCode.getIsSuccess(),
 			successCode.getMessage(),
@@ -46,8 +46,8 @@ public final class BaseResponseWrapper<T> {
 		);
 	}
 
-	public static BaseResponseWrapper<Void> ok() {
-		return new BaseResponseWrapper<>(
+	public static GlobalResponse<Void> ok() {
+		return new GlobalResponse<>(
 			SuccessCode.SUCCESS.getHttpStatus(),
 			SuccessCode.SUCCESS.getIsSuccess(),
 			SuccessCode.SUCCESS.getMessage(),
@@ -56,11 +56,11 @@ public final class BaseResponseWrapper<T> {
 		);
 	}
 
-	public static BaseResponseWrapper<Void> fail(ErrorCode errorCode) {
+	public static GlobalResponse<Void> fail(ErrorCode errorCode) {
 		if (errorCode == null) {
 			throw new IllegalArgumentException("HTTP 상태와 메시지는 null일 수 없습니다.");
 		}
-		return new BaseResponseWrapper<>(
+		return new GlobalResponse<>(
 			errorCode.getHttpStatus(),
 			errorCode.getIsSuccess(),
 			errorCode.getMessage(),
@@ -69,11 +69,11 @@ public final class BaseResponseWrapper<T> {
 		);
 	}
 
-	public static BaseResponseWrapper<Void> fail(ErrorCode errorCode, String message) {
+	public static GlobalResponse<Void> fail(ErrorCode errorCode, String message) {
 		if (errorCode == null || message == null) {
 			throw new IllegalArgumentException("HTTP 상태와 메시지는 null일 수 없습니다.");
 		}
-		return new BaseResponseWrapper<>(
+		return new GlobalResponse<>(
 			errorCode.getHttpStatus(),
 			errorCode.getIsSuccess(),
 			message,

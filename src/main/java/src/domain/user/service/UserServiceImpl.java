@@ -14,7 +14,7 @@ import src.domain.user.entity.UserAuth;
 import src.domain.user.repository.UserAuthRepository;
 import src.domain.user.repository.UserRepository;
 import src.global.constant.code.ErrorCode;
-import src.global.exception.BaseException;
+import src.global.exception.GlobalException;
 
 @Service
 @Slf4j
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
 			return UserResponse.UserCreateResponse.from(createUser,createUserAuth);
 		} catch (DataIntegrityViolationException e) {
 			log.warn("제약 조건 위반: {}", e.getMessage(), e);
-			throw new BaseException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
-			throw new BaseException(ErrorCode.INVALID_REQUEST_DATA);
+			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
 		}
 	}
 }

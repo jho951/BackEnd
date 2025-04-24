@@ -1,8 +1,10 @@
 spring:
   application:
-    name: sbb
+    name: backend
   profiles:
     active: local
+  config:
+    import: "classpath:application-secret.yml"
 
 springdoc:
   api-docs:

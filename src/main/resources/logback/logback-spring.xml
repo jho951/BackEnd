@@ -10,7 +10,7 @@
         <include resource="logback/logback-local.xml"/>
     </springProfile>
 
-    <!-- 로컬 시 적용 -->
+    <!-- 배포 시 적용 -->
     <springProfile name="prod">
         <include resource="logback/logback-prod.xml"/>
     </springProfile>
