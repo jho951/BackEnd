@@ -5,8 +5,6 @@ services:
       dockerfile: server/Dockerfile
     container_name: spring_boot_app
     platform: linux/amd64
-    env_file:
-      - ../.env
     environment:
       MYSQL_HOST: mysql
       MYSQL_ROOT_PASSWORD: 1234

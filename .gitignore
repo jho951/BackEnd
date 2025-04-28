@@ -15,7 +15,6 @@ build/
 
 # secret
 .env
-application-secret.yml
 
 # IntelliJ
 .idea
