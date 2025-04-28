@@ -4,5 +4,5 @@ server.port: 5601       # 기본 포트 (필요에 따라 변경 가능)
 
 # SSL 설정 (HTTPS 활성화)
 server.ssl.enabled: true  # SSL을 활성화
-server.ssl.certificate: /etc/nginx/ssl/cert.pem  # SSL 인증서 경로
-server.ssl.key: /etc/nginx/ssl/cert.key  # SSL 인증서 키 경로
+server.ssl.certificate: /etc/nginx/cert/fullchain.pem  # SSL 인증서 경로
+server.ssl.key: /etc/nginx/cert/privekey.pem  # SSL 인증서 키 경로

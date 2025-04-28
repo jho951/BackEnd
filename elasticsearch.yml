@@ -16,11 +16,11 @@ http.port: 9200
 # HTTPS 활성화 및 SSL 인증서 경로 설정
 xpack.security.enabled: true  # 보안 활성화
 xpack.security.http.ssl.enabled: true  # HTTPS 활성화
-xpack.security.http.ssl.certificate: /etc/nginx/ssl/cert.pem  # SSL 인증서 경로
-xpack.security.http.ssl.key: /etc/nginx/ssl/cert.key
+xpack.security.http.ssl.certificate: /etc/nginx/certs/fullchain.pem  # SSL 인증서 경로
+xpack.security.http.ssl.key: /etc/nginx/certs/privekey.pem
 xpack.security.transport.ssl.enabled: true
-xpack.security.transport.ssl.certificate: "/path/to/your/cert.pem"
-xpack.security.transport.ssl.key: "/path/to/your/cert.key"
+xpack.security.transport.ssl.certificate: /etc/nginx/certs/fullchain.pem
+xpack.security.transport.ssl.key: /etc/nginx/certs/privekey.pem
 
 # 클러스터 초기 마스터 노드 설정
 cluster.initial_master_nodes: ["node-1"]
