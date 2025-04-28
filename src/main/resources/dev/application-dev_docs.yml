@@ -1,0 +1,13 @@
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    openapi:
+      servers:
+        - url: https://localhost:443
+          description: Local Server (HTTPS)
+
+kibana:
+  url: https://localhost:443/kibana/

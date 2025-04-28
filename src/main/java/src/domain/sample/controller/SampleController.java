@@ -28,7 +28,6 @@ import src.domain.sample.service.SampleService;
 import src.global.common.response.GlobalResponse;
 
 
-
 @RestController
 @RequestMapping("/v1/sample")
 @RequiredArgsConstructor

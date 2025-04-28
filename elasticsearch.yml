@@ -1,0 +1,26 @@
+# 클러스터 이름 설정
+cluster.name: "my-cluster"
+
+# 노드 이름 설정
+node.name: "node-1"
+
+# 노드 역할 설정 (마스터, 데이터, 인제스트)
+node.roles: ["master", "data", "ingest"]
+
+# 네트워크 호스트 설정 (모든 IP에서 접근 허용)
+network.host: 0.0.0.0
+
+# HTTP 포트 설정 (기본 9200)
+http.port: 9200
+
+# HTTPS 활성화 및 SSL 인증서 경로 설정
+xpack.security.enabled: true  # 보안 활성화
+xpack.security.http.ssl.enabled: true  # HTTPS 활성화
+xpack.security.http.ssl.certificate: /etc/nginx/ssl/cert.pem  # SSL 인증서 경로
+xpack.security.http.ssl.key: /etc/nginx/ssl/cert.key
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.certificate: "/path/to/your/cert.pem"
+xpack.security.transport.ssl.key: "/path/to/your/cert.key"
+
+# 클러스터 초기 마스터 노드 설정
+cluster.initial_master_nodes: ["node-1"]

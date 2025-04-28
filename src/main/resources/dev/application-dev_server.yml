@@ -1,16 +1,10 @@
-spring:
-  datasource:
-    url: jdbc:mysql://mysql:3306/backend
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: user
-    password: 1234
-
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
+server:
+  forward-headers-strategy: framework
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  error:
+    whitelabel:
+      enabled: false

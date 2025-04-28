@@ -1,8 +1,5 @@
 package src.domain.user.dto;
 
-import static src.domain.user.constant.UserRole.*;
-import static src.domain.user.constant.UserSocial.*;
-import static src.domain.user.constant.UserStatus.*;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,9 +8,6 @@ import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.NotEmpty;
 
-import src.domain.user.constant.UserRole;
-import src.domain.user.constant.UserSocial;
-import src.domain.user.constant.UserStatus;
 import src.domain.user.entity.User;
 import src.domain.user.entity.UserAuth;
 

@@ -1,0 +1,58 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: elasticsearch
+    platform: linux/amd64
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    healthcheck:
+      test: curl -s http://localhost:9200/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "9200:9200"
+    networks:
+      - common-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_BASEPATH=/kibana
+      - SERVER_REWRITEBASEPATH=true
+      - ELASTICSEARCH_USERNAME=root
+      - ELASTICSEARCH_PASSWORD=1234
+      - xpack.security.enabled=true
+      - SERVER_SSL_CERTIFICATE=/etc/nginx/certs/fullchain.crt
+      - SERVER_SSL_KEY=/etc/kibana/nginx/certs/privekey.crt
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./path/to/certs:/etc/nginx/certs/
+    networks:
+      - common-net
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.0
+    container_name: logstash
+    volumes:
+    - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+    ports:
+      - "5044:5044"
+      - "5001:5000/tcp"
+      - "5001:5000/udp"
+    depends_on:
+      - elasticsearch
+    networks:
+      - common-net
+
+networks:
+  common-net:
+    external: true
+    name: common-net
