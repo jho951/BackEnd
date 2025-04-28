@@ -1,51 +1,10 @@
-# --------------------------------------------
-# 텍스트 파일 처리
-# --------------------------------------------
+# .gitattributes 파일은 통계 포함
 
-# 모든 텍스트 파일은 LF 사용
-* text=auto eol=lf
+# 모든 .txt 파일은 텍스트로 처리
+*.txt text
 
-# Windows 전용 파일은 CRLF
-*.bat text eol=crlf
-*.cmd text eol=crlf
-
-# --------------------------------------------
-# 바이너리 파일 처리
-# --------------------------------------------
-
-*.class binary
-*.jar binary
-*.war binary
-*.ear binary
-*.zip binary
-*.tar binary
-*.gz binary
-*.7z binary
-*.png binary
+# .jpg 파일은 바이너리로 처리
 *.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.pdf binary
 
-# --------------------------------------------
-# GitHub 언어 통계 제외 설정
-# --------------------------------------------
-
-# 의존성, 빌드 결과물 등은 GitHub 언어 통계에서 제외
-/build/** linguist-generated
-/target/** linguist-generated
-.gradle/** linguist-vendored
-!/.gitattributes   # .gitattributes 파일은 통계 포함
-
-# --------------------------------------------
-# 배포 시 제외 (git archive 등에서 제외할 파일)
-/build/** export-ignore
-/target/** export-ignore
-.gradle/** export-ignore
-.idea/** export-ignore
-*.iml export-ignore
-
-# --------------------------------------------
-# 기타 설정 (선택 사항)
-/*.lock -diff
+# 이 파일은 Git 추적에서 제외
+!/.gitattributes
