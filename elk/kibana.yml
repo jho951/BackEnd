@@ -5,4 +5,6 @@ server.port: 5601       # 기본 포트 (필요에 따라 변경 가능)
 # SSL 설정 (HTTPS 활성화)
 server.basePath: "/kibana"
 server.rewriteBasePath: true
-server.ssl.enabled: true  # SSL을 활성화
+
+# SSL 설정 비활성화 (Nginx에서 처리하므로)
+server.ssl.enabled: false

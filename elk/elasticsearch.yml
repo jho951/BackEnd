@@ -2,7 +2,7 @@
 cluster.name: "my-cluster"
 
 # 노드 이름 설정
-node.name: "node-1"
+node.name: "node-1"  # 이 값은 Docker에서 각 노드에 대해 다르게 설정해야 함
 
 # 노드 역할 설정 (마스터, 데이터, 인제스트)
 node.roles: ["master", "data", "ingest"]
@@ -18,3 +18,6 @@ xpack.security.enabled: true  # 보안 활성화
 
 # 클러스터 초기 마스터 노드 설정
 cluster.initial_master_nodes: ["node-1"]
+
+# 클러스터에 노드들이 연결될 수 있도록 discovery.seed_hosts 추가
+discovery.seed_hosts: ["elasticsearch"]  # 각 Elasticsearch 노드의 이름 (Docker 컨테이너 이름을 사용)
