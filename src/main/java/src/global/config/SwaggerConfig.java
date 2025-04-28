@@ -17,7 +17,7 @@ public class SwaggerConfig {
 		// Info 객체 설정
 		return new OpenAPI()
 			.info(new Info().title("BackEnd").version("v1").description("API Documentation for my Spring Boot app"))
-			.servers(List.of(new Server().url("https://nginx:443")));
+			.servers(List.of(new Server().url("https://localhost:443")));
 	}
 
 	@Bean
