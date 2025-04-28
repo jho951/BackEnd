@@ -3,7 +3,6 @@ spring:
     name: backend
   config:
     import:
-      - optional:file:.env[.properties]
       - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_db.yml
       - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_server.yml
       - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_auth.yml

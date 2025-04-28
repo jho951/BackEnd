@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/mysql?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: user
     password: 1234
     dialect: org.hibernate.dialect.MySQLDialect
@@ -10,6 +10,7 @@ spring:
       minimum-idle: 5
 
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
@@ -19,7 +20,6 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 100
-        open-in-view: false
 
   data:
     elasticsearch:

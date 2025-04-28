@@ -6,8 +6,8 @@ springdoc:
     path: /swagger-ui.html
     openapi:
       servers:
-        - url: https://localhost:443
+        - url: https://localhost
           description: Local Server (HTTPS)
 
 kibana:
-  url: https://localhost:443/kibana/
+  url: https://localhost/kibana/

@@ -1,5 +1,6 @@
 package src.global.common.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class BaseAuthEntity extends BaseEntity {
 	@Column(name = "modified_by")
 	private String modifiedBy;
 
+	@Builder.Default
 	@Column(name = "is_deleted", nullable = false)
 	private Boolean isDeleted = false;
 }
