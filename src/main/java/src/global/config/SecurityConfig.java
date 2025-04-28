@@ -22,14 +22,14 @@ public class SecurityConfig {
 		http
 			.csrf(AbstractHttpConfigurer::disable)
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-			.authorizeHttpRequests((authorizeRequests) -> authorizeRequests.anyRequest().permitAll());
+			.authorizeHttpRequests((authorizeRequests) -> authorizeRequests.anyRequest().permitAll()); // 실제 서비스에서는 인가 규칙 설정 필요
 		return http.build();
 	}
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(List.of("https://localhost"));
+		configuration.setAllowedOrigins(List.of("https://localhost", "http://localhost")); // 필요에 따라 http 추가
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
 		configuration.setAllowCredentials(true);
