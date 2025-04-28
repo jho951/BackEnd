@@ -29,8 +29,7 @@ data/
 # Logs
 logs
 
-/.gitattributes
-
 # Docs or helpers
 HELP.md
+.gitattributes
 

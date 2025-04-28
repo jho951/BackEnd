@@ -7,7 +7,6 @@ services:
     platform: linux/amd64
     environment:
       MYSQL_URL: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-      MYSQL_HOST: mysql
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
