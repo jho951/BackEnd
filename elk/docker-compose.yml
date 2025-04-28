@@ -22,20 +22,10 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - SERVER_BASEPATH=/kibana
-      - SERVER_REWRITEBASEPATH=true
-      - ELASTICSEARCH_USERNAME=root
-      - ELASTICSEARCH_PASSWORD=1234
-      - xpack.security.enabled=true
-      - SERVER_SSL_ENABLED=true
-      - SERVER_SSL_CERTIFICATE=/etc/nginx/certs/fullchain.crt  # 인증서 경로
-      - SERVER_SSL_KEY=/etc/nginx/certs/privekey.pem
     ports:
       - "5601:5601"
     depends_on:
       - elasticsearch
-    volumes:
-      - ./etc/nginx/certs:/etc/nginx/certs/
     networks:
       - common-net
 
