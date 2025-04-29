@@ -7,7 +7,7 @@ services:
     platform: linux/amd64
     ports:
       - "8080:8080"
-    restart: always
+    restart: no
     environment:
       MYSQL_URL: jdbc:mysql://mysql/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
       MYSQL_ROOT_PASSWORD: 1234
@@ -15,7 +15,8 @@ services:
       MYSQL_PASSWORD: 1234
       MYSQL_DATABASE: backend
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - common-net
 
@@ -32,6 +33,11 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck: # ✅ 여기에 healthcheck 추가
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-p1234"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - common-net
 
