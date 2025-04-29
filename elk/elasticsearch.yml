@@ -14,7 +14,7 @@ network.host: 0.0.0.0
 http.port: 9200
 
 # 보안 설정 (필요에 따라 비활성화 가능)
-xpack.security.enabled: true  # 보안 활성화
+xpack.security.enabled: false  # 보안 비 활성화
 
 # 클러스터 초기 마스터 노드 설정
 cluster.initial_master_nodes: ["node-1"]

@@ -1,12 +1,15 @@
 services:
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: spring_boot_app
+    build:
+      context: ../
+      dockerfile: Dockerfile
     platform: linux/amd64
+    ports:
+      - "8080:8080"
+    restart: always
     environment:
-      MYSQL_URL: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      MYSQL_URL: jdbc:mysql://mysql/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
@@ -22,7 +25,6 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_HOST: mysql
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
@@ -41,6 +43,7 @@ services:
       - "443:443"
     volumes:
       - ../nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../nginx/conf:/etc/nginx/conf.d:ro
       - ../nginx/certs/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro
       - ../nginx/certs/privkey.pem:/etc/nginx/certs/privkey.pem:ro
     depends_on:
@@ -55,4 +58,3 @@ volumes:
 networks:
   common-net:
     external: true
-    name: common-net

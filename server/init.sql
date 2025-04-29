@@ -1,2 +1,5 @@
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+-- 사용할 데이터베이스 선택
+USE backend;

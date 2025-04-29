@@ -1,18 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
     username: user
     password: 1234
-    host: mysql
     hikari:
       maximum-pool-size: 5
-      minimum-idle: 5
+      minimum-idle: 1
 
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -23,7 +22,4 @@ spring:
 
   data:
     elasticsearch:
-      cluster-name: docker-cluster
-      cluster-nodes: elasticsearch:9200
-      rest:
-        uris: http://elasticsearch:9200
+      uris: http://elasticsearch:9200
