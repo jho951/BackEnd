@@ -1,6 +1,8 @@
 # Kibana가 사용할 호스트와 포트 설정
 server.host: "0.0.0.0"
-server.port: 5601       # 기본 포트 (필요에 따라 변경 가능)
+server.port: 5601  # 기본 포트
+
+# Elasticsearch 호스트 설정
 elasticsearch.hosts: ["http://elasticsearch:9200"]
 
 # SSL 설정 (HTTPS 활성화)
