@@ -8,7 +8,7 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
     healthcheck:
       test: curl -s http://localhost:9200/_cluster/health || exit 1
       interval: 10s
@@ -38,7 +38,7 @@ services:
     image: docker.elastic.co/logstash/logstash:8.12.0
     container_name: logstash
     volumes:
-      - ./logstash/pipeline/logstash.conf:/elk/logstash/pipeline/logstash.conf
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     ports:
       - "5044:5044"
       - "5001:5000/tcp"
