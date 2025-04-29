@@ -9,5 +9,9 @@ elasticsearch.hosts: ["http://elasticsearch:9200"]
 server.basePath: "/kibana"
 server.rewriteBasePath: true
 
+# CORS 설정 활성화
+server.cors.enabled: true
+server.cors.allow-origin: "http://localhost:5601"
+
 # SSL 설정 비활성화 (Nginx에서 처리하므로)
 server.ssl.enabled: false
