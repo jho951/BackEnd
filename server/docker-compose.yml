@@ -7,11 +7,12 @@ services:
     platform: linux/amd64
     ports:
       - "8080:8080"
-    restart: always
+    restart: no
     environment:
       MYSQL_URL: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - common-net
 
@@ -26,9 +27,13 @@ services:
       MYSQL_PASSWORD: 1234           # 사용자 비밀번호 설정
       MYSQL_DATABASE: backend        # 데이터베이스 설정
     volumes:
-      - ./my.cnf:/etc/mysql/my.cnf   # MySQL 설정 파일
-      - mysql-data:/var/lib/mysql    # 데이터 저장
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 초기화 SQL 스크립트
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck: # ✅ 여기에 healthcheck 추가
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-p1234"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - common-net
 
