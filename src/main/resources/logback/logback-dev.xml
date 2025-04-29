@@ -25,7 +25,7 @@
 
     <!-- Logstash TCP 송신기 -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>logstash:5044</destination>  <!-- Logstash 컨테이너의 5044 포트 -->
+        <destination>logstash:5001</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
