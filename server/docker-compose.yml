@@ -1,55 +1,22 @@
 services:
-  backend:
-    container_name: spring_boot_app
-    build:
-      context: ../
-      dockerfile: Dockerfile
-    platform: linux/amd64
-    ports:
-      - "8080:8080"
-    restart: no
-    environment:
-      MYSQL_URL: jdbc:mysql://mysql:3306/backend?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    depends_on:
-      mysql:
-        condition: service_healthy
-    networks:
-      - common-net
-
   mysql:
     image: mysql:8.0
     container_name: mysql
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 1234      # 루트 비밀번호 설정
-      MYSQL_USER: user               # 사용자 설정
-      MYSQL_PASSWORD: 1234           # 사용자 비밀번호 설정
-      MYSQL_DATABASE: backend        # 데이터베이스 설정
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: backend
     volumes:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck: # ✅ 여기에 healthcheck 추가
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "user", "-p1234"]
       interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - common-net
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ../nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ../nginx/conf:/etc/nginx/conf.d:ro
-      - ../nginx/certs/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro
-      - ../nginx/certs/privkey.pem:/etc/nginx/certs/privkey.pem:ro
-    depends_on:
-      - backend
     networks:
       - common-net
 
@@ -60,3 +27,4 @@ volumes:
 networks:
   common-net:
     external: true
+    name: common-net

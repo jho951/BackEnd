@@ -3,7 +3,5 @@ node.name: "node-1"
 node.roles: ["master", "data", "ingest"]
 network.host: 0.0.0.0
 xpack.security.enabled: false
-http.cors.enabled: true
-http.cors.allow-origin: "http://localhost"
 # 단일 노드 클러스터 설정
 discovery.type: single-node
