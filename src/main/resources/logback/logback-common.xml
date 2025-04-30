@@ -1,6 +1,6 @@
 <configuration>
     <!-- 공통 로그 경로 및 파일 설정 -->
-    <property name="LOG_PATH" value="/var/log/app"/>
+    <property name="LOG_PATH" value="./logs"/>
     <property name="LOG_FILE" value="${LOG_PATH}/application.log"/>
     <property name="ROLLING_PATTERN" value="${LOG_PATH}/app.%d{yyyy-MM-dd}.log"/>
     <property name="MAX_HISTORY" value="30"/>

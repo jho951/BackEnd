@@ -4,8 +4,19 @@
     <!--로그 포맷 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${CONSOLE_LOG_LOCAL_PATTERN}</pattern>
+            <pattern>${CONSOLE_LOG_TEST_PATTERN}</pattern>
         </encoder>
+    </appender>
+
+    <!-- INFO 레벨 로그 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${INFO_LOG_FILE}</file>
+        <encoder>
+            <pattern>${CONSOLE_LOG_TEST_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+        </filter>
     </appender>
 
     <!-- ERROR 레벨 로그를 처리하는 파일 appender -->
@@ -22,10 +33,43 @@
         </filter>
     </appender>
 
+    <!-- WARN 레벨 로그 -->
+    <appender name="WARN_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${WARN_LOG_FILE}</file>
+        <encoder>
+            <pattern>${CONSOLE_LOG_TEST_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+        </filter>
+    </appender>
+
+    <!-- DEBUG 레벨 로그 -->
+    <appender name="DEBUG_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${DEBUG_LOG_FILE}</file>
+        <encoder>
+            <pattern>${CONSOLE_LOG_TEST_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- TRACE 레벨 로그 -->
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${TRACE_LOG_FILE}</file>
+        <encoder>
+            <pattern>${CONSOLE_LOG_TEST_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
 
     <!-- Logstash TCP 송신기 -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>logstash:5001</destination>
+        <destination>logstash:5000</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 

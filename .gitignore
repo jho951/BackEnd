@@ -14,7 +14,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 
 # secret
-.env
+.env*
 
 # IntelliJ
 .idea

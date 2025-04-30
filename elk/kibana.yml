@@ -5,5 +5,4 @@ server.port: 5601  # 기본 포트
 # Elasticsearch 호스트 설정
 elasticsearch.hosts: ["http://elasticsearch:9200"]
 
-# SSL 설정 비활성화 (Nginx에서 처리하므로)
 server.ssl.enabled: false

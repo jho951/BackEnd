@@ -3,16 +3,12 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
     container_name: elasticsearch
     platform: linux/amd64
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms2g -Xmx2g
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - "9200:9200"
     healthcheck:
-      test: curl -s http://localhost:9200/_cluster/health || exit 1
+      test: curl -s http://elasticsearch:9200/_cluster/health || exit 1
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,8 +18,6 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:8.12.0
     container_name: kibana
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
@@ -39,10 +33,9 @@ services:
     container_name: logstash
     volumes:
       - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logs:/logs
     ports:
-      - "5044:5044"
-      - "5001:5000/tcp"
-      - "5001:5000/udp"
+      - "5000:5000"
     depends_on:
       elasticsearch:
         condition: service_healthy

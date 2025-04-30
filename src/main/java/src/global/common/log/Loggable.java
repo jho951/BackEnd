@@ -10,5 +10,5 @@ import src.global.constant.log.LogLevel;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Loggable {
-	LogLevel level() default LogLevel.INFO;
+	LogLevel level() default LogLevel.DEBUG;
 }
