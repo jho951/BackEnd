@@ -23,5 +23,5 @@ volumes:
 
 networks:
   common-net:
-    external: true
-    name: common-net
+    driver: bridge
+

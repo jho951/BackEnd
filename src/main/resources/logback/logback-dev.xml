@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_DEV_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>localhost:5000</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
 
-    <logger name="org.jboss.logging" level="DEBUG">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGSTASH"/>
-    </logger>
+    </root>
 
     <!-- 패키지별 로그 레벨 조절 (선택사항) -->
     <logger name="org.hibernate.SQL" level="DEBUG" />

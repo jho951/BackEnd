@@ -17,11 +17,11 @@
     <property name="TRACE_LOG_FILE" value="${LOG_PATH}/trace.log"/>
 
     <!-- 콘솔 & 파일 출력용 로그 포맷 -->
-    <property name="CONSOLE_LOG_LOCAL_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n"/>
+    <property name="CONSOLE_LOG_DEV_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n"/>
     <property name="CONSOLE_LOG_PROD_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
     <property name="CONSOLE_LOG_DATE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%ex{full}"/>
     <property name="CONSOLE_LOG_DEBUG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) [%file:%line] - %msg%n"/>
-    <property name="CONSOLE_LOG_TEST_PATTERN" value="{&quot;timestamp&quot;:&quot;%d{ISO8601}&quot;,&quot;level&quot;:&quot;%level&quot;,&quot;logger&quot;:&quot;%logger&quot;,&quot;thread&quot;:&quot;%thread&quot;,&quot;message&quot;:&quot;%msg&quot;,&quot;exception&quot;:&quot;%ex&quot;}%n"/>
+    <property name="CONSOLE_LOG_JSON_PATTERN" value="{&quot;timestamp&quot;:&quot;%d{ISO8601}&quot;,&quot;level&quot;:&quot;%level&quot;,&quot;logger&quot;:&quot;%logger&quot;,&quot;thread&quot;:&quot;%thread&quot;,&quot;message&quot;:&quot;%msg&quot;,&quot;exception&quot;:&quot;%ex&quot;}%n"/>
     <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n%ex{full}"/>
 
 </configuration>
