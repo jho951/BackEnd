@@ -2,6 +2,7 @@
 <configuration>
     <!-- Spring Boot 기본(공통) 로깅 설정 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
     <!-- 공통 설정 -->
     <include resource="logback/logback-common.xml"/>
 

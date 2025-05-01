@@ -1,6 +1,5 @@
 package src.domain.sample.controller;
 
-
 import lombok.RequiredArgsConstructor;
 
 import jakarta.validation.Valid;
