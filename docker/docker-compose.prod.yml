@@ -1,0 +1,50 @@
+services:
+  elasticsearch:
+    env_file:
+      - .env.prod
+    ports:
+      - "${ELASTICSEARCH_PORT}:9200"
+    volumes:
+      - ${ELASTICSEARCH_PATH}/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    healthcheck:
+      test: curl -s ${ELASTICSEARCH_URL}/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kibana:
+    env_file:
+      - .env.prod
+    ports:
+      - "${KIBANA_PORT}:5601"
+    volumes:
+      - ${KIBANA_PATH}/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  logstash:
+    env_file:
+      - .env.prod
+    ports:
+      - "${LOGSTASH_PORT}:5000"
+    volumes:
+      - ${LOGSTASH_PATH}/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ${LOGSTASH_PATH}/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  mysql:
+    env_file:
+      - .env.prod
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ${MYSQL_PATH}/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "mysqladmin ping -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASSWORD}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5

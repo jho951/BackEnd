@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import lombok.extern.slf4j.Slf4j;
 import src.global.common.log.Loggable;
 import src.global.constant.log.LogLevel;
 import src.domain.sample.dto.SampleRequest;
@@ -28,12 +27,11 @@ import src.domain.sample.service.SampleService;
 import src.global.common.response.GlobalResponse;
 
 
-@Slf4j
 @RestController
 @RequestMapping("/v1/sample")
 @RequiredArgsConstructor
 @Tag(name = "Sample Controller", description = "This is an sample controller")
-@Loggable(level = LogLevel.DEBUG)
+@Loggable(level = LogLevel.INFO)
 public class SampleController {
     private final SampleService sampleService;
 

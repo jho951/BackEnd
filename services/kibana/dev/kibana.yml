@@ -3,7 +3,7 @@ server.host: "0.0.0.0"
 server.port: 5601
 
 # Elasticsearch 호스트 설정
-elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.hosts: ["${ELASTICSEARCH_URL}"]
 #elasticsearch.serviceAccountToken: ${KIBANA_SERVICE_TOKEN}
 
 monitoring.ui.container.elasticsearch.enabled: true

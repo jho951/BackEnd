@@ -5,13 +5,19 @@ import java.util.Arrays;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+
+import org.slf4j.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
 import lombok.RequiredArgsConstructor;
+
 import src.global.constant.log.LogLevel;
-import org.springframework.beans.factory.annotation.Value;
+
+
 
 @Aspect
 @Component
@@ -29,19 +35,24 @@ public class LoggingAspect {
 		String methodName = joinPoint.getSignature().toShortString();
 		Object[] args = joinPoint.getArgs();
 
+		// MDC에 log_type 설정 (예: "api" 또는 "system")
+		String logType = String.valueOf(loggable.value()); // loggable이 지정하는 타입 (예: "api", "system")
+		MDC.put("log_type", logType);  // MDC에 log_type을 넣음
+
 		// 로그 레벨에 맞는 로깅
 		logByLevel(loggable.level(), "[START] " + methodName + " args=" + Arrays.toString(args));
 
 		try {
 			Object result = joinPoint.proceed();
 
-			// Elasticsearch 로그에 맞는 인덱스 패턴을 설정하여 로그를 저장
 			logByLevel(loggable.level(), "[END] " + methodName + " return=" + result);
 			return result;
 
 		} catch (Throwable throwable) {
 			logByLevel(LogLevel.ERROR, "[EXCEPTION] " + methodName + " ex=" + throwable.getMessage());
 			throw throwable;
+		} finally {
+			MDC.remove("log_type");  // MDC에서 log_type 제거
 		}
 	}
 

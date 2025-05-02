@@ -42,3 +42,5 @@ DBAppender	DB에 직접 로그 저장 (잘 안 씀)
 
 ./start-all.sh
 ./shutdown-all.sh
+
+ELASTICSEARCH_PATH=./services/elasticsearch/dev

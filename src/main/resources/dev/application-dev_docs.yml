@@ -6,4 +6,4 @@ springdoc:
     doc-expansion: none
 
 kibana:
-  url: http://localhost:5601
+  url: ${KIBANA_URL}

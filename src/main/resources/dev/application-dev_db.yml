@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dev?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: user
-    password: 1234
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
     hikari:
       maximum-pool-size: 5
       minimum-idle: 1
@@ -21,4 +21,4 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
   elasticsearch:
-    uris: http://elasticsearch:9200
+    uris: ${ELASTICSEARCH_URL}
