@@ -11,54 +11,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Value;
 
 import lombok.RequiredArgsConstructor;
 
 import src.global.constant.log.LogLevel;
 
-
-
+// AOP로 인식하고 bean에 등록
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class LoggingAspect {
-
 	private final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
 
-	// Elasticsearch 관련 설정을 추가
-	@Value("${elasticsearch.index.prefix:spring-logs}")
-	private String logIndexPrefix;
-
-	@Around("@annotation(loggable)")
-	public Object logMethodCall(ProceedingJoinPoint joinPoint, Loggable loggable) throws Throwable {
-		String methodName = joinPoint.getSignature().toShortString();
-		Object[] args = joinPoint.getArgs();
-
-		// MDC에 log_type 설정 (예: "api" 또는 "system")
-		String logType = String.valueOf(loggable.value()); // loggable이 지정하는 타입 (예: "api", "system")
-		MDC.put("log_type", logType);  // MDC에 log_type을 넣음
-
-		// 로그 레벨에 맞는 로깅
-		logByLevel(loggable.level(), "[START] " + methodName + " args=" + Arrays.toString(args));
-
-		try {
-			Object result = joinPoint.proceed();
-
-			logByLevel(loggable.level(), "[END] " + methodName + " return=" + result);
-			return result;
-
-		} catch (Throwable throwable) {
-			logByLevel(LogLevel.ERROR, "[EXCEPTION] " + methodName + " ex=" + throwable.getMessage());
-			throw throwable;
-		} finally {
-			MDC.remove("log_type");  // MDC에서 log_type 제거
-		}
-	}
-
+	/**
+	 * @param level 로그 레벨
+	 * @param message 로깅에 적힐 메시지
+	 */
 	private void logByLevel(LogLevel level, String message) {
-		String index = logIndexPrefix + "-" + level.name().toLowerCase();
-		// 로그 메시지에 맞게 logstash와 연동된 로그를 출력 (예시: Elasticsearch index별로 저장)
+		// 로그 레벨에 따라 Lombok 기반 Logger를 통해 메시지 출력
 		switch (level) {
 			case TRACE -> log.trace(message);
 			case DEBUG -> log.debug(message);
@@ -66,9 +36,45 @@ public class LoggingAspect {
 			case WARN -> log.warn(message);
 			case ERROR -> log.error(message);
 		}
+	}
 
-		// 로그를 Elasticsearch에 저장하는 추가적인 로직을 추가할 수 있음
-		// 예: Elasticsearch로 전송되는 로그 레벨에 맞춰 인덱스에 기록
-		// 이 부분은 애플리케이션에서 Elasticsearch로 로깅 데이터를 전송하는 로직을 추가하는 부분에 의존함
+	/**
+	 * @param joinPoint 대상 메서드의 메타정보와 인자에 접근
+	 * @param loggable 어노테이션으로부터 설정값을 직접 꺼냄
+	 * @return result 해당 로그
+	 * @throws Throwable
+	 */
+	// @Loggable 어노테이션이 붙은 메서드 실행 전후에 실행
+	@Around("@annotation(loggable)")
+	public Object logMethodCall(ProceedingJoinPoint joinPoint, Loggable loggable) throws Throwable {
+		// 메서드의 졍보을 추출 ex) SampleService.create(..)
+		String methodName = joinPoint.getSignature().toShortString();
+		// 대상 메서드의 인자 파라미터를 가져옴
+		Object[] args = joinPoint.getArgs();
+
+		// @Loggable에 설정한 type을 문자열로 변환 ex) "log", "system"
+		String logType = String.valueOf(loggable.type());
+		// MDC에 log_type이라는 key로 값을 저장
+		MDC.put("log_type", logType);
+
+		// @Loggable에 설정에 레벨에 맞게 START 로그를 출력
+		logByLevel(loggable.level(), "[START] " + methodName + " args=" + Arrays.toString(args));
+
+		try {
+			// 비즈니스 로직 메서드가 여기서 실행됨
+			Object result = joinPoint.proceed();
+
+			// 메서드 실행이 끝난 뒤 결과 값을 로깅
+			logByLevel(loggable.level(), "[END] " + methodName + " return=" + result);
+			return result;
+
+		} catch (Throwable throwable) {
+			// 예외 발생 시 ERROR 레벨로 예외 메시지를 로깅 후 예외를 던짐
+			logByLevel(LogLevel.ERROR, "[EXCEPTION] " + methodName + " ex=" + throwable.getMessage());
+			throw throwable;
+		} finally {
+			// MDC는 ThreadLocal 기반이므로 메모리 누수 방지를 위해 제거를 해야합니다.
+			MDC.remove("log_type");
+		}
 	}
 }

@@ -25,3 +25,4 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 # Spring 프로파일 prod 설정 포함
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]
+CMD ["--spring.profiles.active=dev"]

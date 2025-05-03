@@ -11,6 +11,7 @@ network.host: 0.0.0.0
 # 보안 설정 활성화
 xpack.security.enabled: false
 xpack.security.authc.api_key.enabled: false
+xpack.security.autoconfiguration.enabled: false
 
 # 단일 노드 클러스터 설정
 discovery.type: single-node

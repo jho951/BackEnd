@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum LogValue {
-	API,
-	SYSTEM,
-	DEFAULT
+public enum LogType {
+	API("api"),
+	SYSTEM("syetem"),
+	DEFAULT("default");
+
+	private final String type;
 }

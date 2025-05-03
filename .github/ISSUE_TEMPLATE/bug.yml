@@ -1,4 +1,4 @@
-name: 버그 제보
+name: Bug
 description: 버그를 제보하려면 이 템플릿을 사용하세요.
 title: "[Bug] 버그 제목을 입력해주세요"
 labels: [BUG]

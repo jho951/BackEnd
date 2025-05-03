@@ -25,6 +25,7 @@ services:
       - common-net
 
 volumes:
+  elasticsearch:
   mysql-data:
 
 networks:

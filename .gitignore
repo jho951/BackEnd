@@ -26,9 +26,6 @@ out/
 # Data
 data/
 
-# Logs
-logs
-
 # Docs or helpers
 HELP.md
 .gitattributes

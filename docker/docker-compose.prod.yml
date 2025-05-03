@@ -27,7 +27,7 @@ services:
     env_file:
       - .env.prod
     ports:
-      - "${LOGSTASH_PORT}:5000"
+      - "${LOGSTASH_PORT}:5000/tcp"
     volumes:
       - ${LOGSTASH_PATH}/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - ${LOGSTASH_PATH}/logstash.yml:/usr/share/logstash/config/logstash.yml

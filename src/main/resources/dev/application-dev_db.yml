@@ -7,7 +7,6 @@ spring:
     hikari:
       maximum-pool-size: 5
       minimum-idle: 1
-
   jpa:
     open-in-view: false
     hibernate:
@@ -18,7 +17,6 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 100
-        dialect: org.hibernate.dialect.MySQL8Dialect
 
   elasticsearch:
     uris: ${ELASTICSEARCH_URL}

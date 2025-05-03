@@ -1,10 +1,9 @@
 # Kibana가 사용할 호스트와 포트 설정
 server.host: "0.0.0.0"
-server.port: 5601
+server.port: "${KIBANA_PORT}"
 
 # Elasticsearch 호스트 설정
 elasticsearch.hosts: ["${ELASTICSEARCH_URL}"]
-#elasticsearch.serviceAccountToken: ${KIBANA_SERVICE_TOKEN}
 
 monitoring.ui.container.elasticsearch.enabled: true
 

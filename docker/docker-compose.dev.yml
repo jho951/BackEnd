@@ -1,0 +1,77 @@
+services:
+  elasticsearch:
+    env_file:
+      - .env.dev
+    ports:
+      - "${ELASTICSEARCH_PORT}:9200"
+    volumes:
+      - type: bind
+        source: ${ELASTICSEARCH_PATH}/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    healthcheck:
+      test: curl -s ${ELASTICSEARCH_URL}/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kibana:
+    env_file:
+      - .env.dev
+    ports:
+      - "${KIBANA_PORT}:5601"
+    volumes:
+      - type: bind
+        source: ${KIBANA_PATH}/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    mem_limit: 2g
+
+  logstash:
+    env_file:
+      - .env.dev
+    ports:
+      - "${LOGSTASH_PORT}:5000/tcp"
+    volumes:
+      - type: bind
+        source: ${LOGSTASH_PATH}/logstash.conf
+        target: /usr/share/logstash/pipeline/logstash.conf
+        read_only: true
+      - type: bind
+        source: ${LOGSTASH_PATH}/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: /sys/fs/cgroup
+        target: /sys/fs/cgroup
+        read_only: true
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  mysql:
+    env_file:
+      - .env.dev
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+      - type: bind
+        source: ${MYSQL_PATH}/my.cnf
+        target: /etc/mysql/my.cnf
+      - type: bind
+        source: ${MYSQL_PATH}/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "mysqladmin ping -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASSWORD}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
