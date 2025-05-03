@@ -1,8 +1,10 @@
-## 배포 서버로 실행 시 (기본은 dev로 설정되어 있습니다.)
-### docker run your-image-name --spring.profiles.active=prod
+### 운영 환경 실행 시
+1. Dockerfile에서 CMD ["--spring.profiles.active=prod"]로 수정
 
+2. docker run your-image-name --spring.profiles.active=prod 입력
 
-./start.sh
-./shutdown.sh
+### docker compose 실행 법
+root 레벨에서 터미널에 "./start.sh" 입력
 
-docker-compose --env-file .env.dev -f docker-compose.yml -f docker-compose.dev.yml up --build    
+### docker compose 내리는 법
+root 레벨에서 터미널에 "./shutdown.sh" 입력
