@@ -2,5 +2,7 @@
 ### docker run your-image-name --spring.profiles.active=prod
 
 
-./start-all.sh
-./shutdown-all.sh
+./start.sh
+./shutdown.sh
+
+docker-compose --env-file .env.dev -f docker-compose.yml -f docker-compose.dev.yml up --build    

@@ -1,7 +1,7 @@
 services:
   elasticsearch:
     env_file:
-      - .env.dev
+      - ../.env.dev
     ports:
       - "${ELASTICSEARCH_PORT}:9200"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   kibana:
     env_file:
-      - .env.dev
+      - ../.env.dev
     ports:
       - "${KIBANA_PORT}:5601"
     volumes:
@@ -35,7 +35,7 @@ services:
 
   logstash:
     env_file:
-      - .env.dev
+      - ../.env.dev
     ports:
       - "${LOGSTASH_PORT}:5000/tcp"
     volumes:
@@ -57,7 +57,7 @@ services:
 
   mysql:
     env_file:
-      - .env.dev
+      - ../.env.dev
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
