@@ -1,0 +1,20 @@
+services:
+  elasticsearch:
+    env_file:
+      - ${ENV_FILE_PATH}
+    ports:
+      - "${ELASTICSEARCH_PORT}:9200"
+    volumes:
+      - type: bind
+        source: ${ELASTICSEARCH_PATH}/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    healthcheck:
+      test: curl -s ${ELASTICSEARCH_URL}/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5

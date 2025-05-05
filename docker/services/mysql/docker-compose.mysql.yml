@@ -1,0 +1,21 @@
+services:
+  mysql:
+    env_file:
+      - ${ENV_FILE_PATH}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+      - type: bind
+        source: ${MYSQL_PATH}/my.cnf
+        target: /etc/mysql/my.cnf
+      - type: bind
+        source: ${MYSQL_PATH}/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "mysqladmin ping -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASSWORD}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
