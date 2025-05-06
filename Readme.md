@@ -8,3 +8,6 @@ root 레벨에서 터미널에 "./start.sh" 입력
 
 ### docker compose 내리는 법
 root 레벨에서 터미널에 "./shutdown.sh" 입력
+
+### elk적용
+로깅 kibana로 모니터링
