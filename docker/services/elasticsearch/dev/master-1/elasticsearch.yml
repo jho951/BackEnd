@@ -1,0 +1,11 @@
+cluster.name: cluster
+node.name: master-node-1
+
+node.master: false
+node.data: false
+
+discovery.seed_hosts: ["master-node-1", "master-node-2", "master-node-3"]
+cluster.initial_master_nodes: ["master-node-1", "master-node-2", "master-node-3"]
+
+network.host: 0.0.0.0
+http.port: 9200

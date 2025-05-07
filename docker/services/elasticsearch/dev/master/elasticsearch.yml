@@ -1,5 +1,0 @@
-# 클러스터 관리를 담당하는 핵심 노드
-path.data: /usr/share/elasticsearch/data
-network.host: 0.0.0.0
-discovery.seed_hosts: ["master", "data"]
-cluster.initial_master_nodes: ["master"]
