@@ -1,16 +1,14 @@
 services:
   logstash:
-    env_file:
-      - ${ENV_FILE_PATH}
     ports:
-      - "${LOGSTASH_PORT}:5000/tcp"
+      - "${LOGSTASH_PORT}:${LOGSTASH_PORT}/tcp"
     volumes:
       - type: bind
-        source: ${LOGSTASH_PATH}/logstash.conf
+        source: services/logstash/dev/logstash.conf
         target: /usr/share/logstash/pipeline/logstash.conf
         read_only: true
       - type: bind
-        source: ${LOGSTASH_PATH}/logstash.yml
+        source: services/logstash/dev/logstash.yml
         target: /usr/share/logstash/config/logstash.yml
         read_only: true
       - type: bind
@@ -18,5 +16,7 @@ services:
         target: /sys/fs/cgroup
         read_only: true
     depends_on:
-      elasticsearch:
+      master-node-1:
+        condition: service_healthy
+      data-node-1:
         condition: service_healthy

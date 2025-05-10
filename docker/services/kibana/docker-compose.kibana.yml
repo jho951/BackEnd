@@ -1,15 +1,14 @@
 services:
   kibana:
-    env_file:
-      - ${ENV_FILE_PATH}
     ports:
-      - "${KIBANA_PORT}:5601"
+      - "${KIBANA_PORT}:${KIBANA_PORT}"
     volumes:
       - type: bind
-        source: ${KIBANA_PATH}/kibana.yml
+        source: services/kibana/dev/kibana.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
     depends_on:
-      elasticsearch:
+      master-node-1:
         condition: service_healthy
-    mem_limit: 2g
+      data-node-1:
+        condition: service_healthy

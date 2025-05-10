@@ -1,20 +1,72 @@
 services:
-  elasticsearch:
-    env_file:
-      - ${ENV_FILE_PATH}
-    ports:
-      - "${ELASTICSEARCH_PORT}:9200"
+  master-node-1:
     volumes:
       - type: bind
-        source: ${ELASTICSEARCH_PATH}/elasticsearch.yml
+        source: services/elasticsearch/dev/master-1/elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
-
-      - type: volume
-        source: elasticsearch
-        target: /usr/share/elasticsearch/data
+      - type: bind
+        source: services/elasticsearch/dev/master-1/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports:
+      - "9300:9300"
     healthcheck:
-      test: curl -s ${ELASTICSEARCH_URL}/_cluster/health || exit 1
+      test: curl -s http://master-node-1:9200/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  master-node-2:
+    volumes:
+      - type: bind
+        source: services/elasticsearch/dev/master-2/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: bind
+        source: services/elasticsearch/dev/master-2/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports:
+      - "9301:9300"
+    healthcheck:
+      test: curl -s http://master-node-2:9200/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  master-node-3:
+    volumes:
+      - type: bind
+        source: services/elasticsearch/dev/master-3/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: bind
+        source: services/elasticsearch/dev/master-3/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports:
+      - "9302:9300"
+    healthcheck:
+      test: curl -s http://master-node-3:9200/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  data-node-1:
+    volumes:
+      - type: bind
+        source: services/elasticsearch/dev/data-1/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: data-1-volume
+        target: /usr/share/elasticsearch/data
+      - type: bind
+        source: services/elasticsearch/dev/data-1/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports:
+      - "9200:9200"
+      - "9303:9300"
+    healthcheck:
+      test: curl -s http://data-node-1:9200/_cluster/health || exit 1
       interval: 10s
       timeout: 5s
       retries: 5
