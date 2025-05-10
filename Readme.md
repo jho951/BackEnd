@@ -8,3 +8,9 @@ root 레벨에서 터미널에 "./start.sh" 입력
 
 ### docker compose 내리는 법
 root 레벨에서 터미널에 "./shutdown.sh" 입력
+
+### 기능
+<b>Spring Security</b>
+<ul>
+<li>인증, 인가 적용</li>
+</ul>
