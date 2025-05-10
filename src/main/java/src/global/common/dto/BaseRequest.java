@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @NoArgsConstructor
 public abstract class BaseRequest {
+
 	@Version
 	private Long version;
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.service.UserService;
-import src.global.common.response.GlobalResponse;
+import src.global.common.dto.GlobalResponse;
 import src.global.constant.code.SuccessCode;
 
 @RestController

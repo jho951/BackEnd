@@ -24,7 +24,7 @@ import src.domain.sample.dto.SampleRequest;
 import src.global.constant.code.SuccessCode;
 import src.domain.sample.dto.SampleResponse;
 import src.domain.sample.service.SampleService;
-import src.global.common.response.GlobalResponse;
+import src.global.common.dto.GlobalResponse;
 import src.global.constant.log.LogType;
 
 @RestController

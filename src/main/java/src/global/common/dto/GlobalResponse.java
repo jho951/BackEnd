@@ -1,4 +1,4 @@
-package src.global.common.response;
+package src.global.common.dto;
 
 import lombok.Getter;
 

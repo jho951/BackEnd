@@ -14,7 +14,6 @@ public class SwaggerConfig {
 
 	@Bean
 	public OpenAPI customOpenAPI() {
-		// Info 객체 설정
 		return new OpenAPI()
 			.info(new Info().title("BackEnd").version("v1").description("API Documentation for my Spring Boot app"))
 			.servers(List.of(
