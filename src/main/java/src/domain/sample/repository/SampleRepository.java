@@ -12,6 +12,6 @@ import java.util.Optional;
 
 public interface SampleRepository extends JpaRepository<Sample, Long> {
 
-	@Query("SELECT s FROM Sample s WHERE s.id = :id AND s.version = :version")
-	Optional<Sample> findSampleByIdAndVersion(@Param("id") Long id, @Param("version") Long version);
+	// @Query("SELECT s FROM Sample s WHERE s.id = :id")
+	// Optional<Sample> findSampleByIdAndVersion(@Param("id") Long id);
 }

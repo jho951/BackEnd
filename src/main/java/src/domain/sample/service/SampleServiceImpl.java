@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
 import src.domain.sample.entity.Sample;
 import src.domain.sample.dto.SampleRequest;
@@ -33,7 +34,6 @@ public class SampleServiceImpl implements SampleService {
 			Sample createSample = sampleRepository.save(dto.toCreateEntity());
 			return SampleResponse.SampleCreateResponse.from(createSample);
 		} catch (DataIntegrityViolationException e) {
-			log.warn("제약 조건 위반: {}", e.getMessage(), e);
 			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
 			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
@@ -44,14 +44,16 @@ public class SampleServiceImpl implements SampleService {
 	@Override
 	public SampleResponse.SampleUpdateResponse update(SampleRequest.SampleUpdateRequest dto){
 		try {
-			Sample updateSample = sampleRepository.findSampleByIdAndVersion(dto.getId(),dto.getVersion())
-				.orElseThrow(() -> new EntityNotFoundException("Sample not found"));
-			sampleRepository.save(dto.toUpdateEntity(updateSample));
-			return SampleResponse.SampleUpdateResponse.from(dto.toUpdateEntity(updateSample));
+			Sample updateSample = sampleRepository.findById(dto.getId())
+				.orElseThrow(() -> new GlobalException(ErrorCode.NOT_FOUND_SAMPLE_DATA_ID));
+			updateSample.update(dto.getContents());
+			return SampleResponse.SampleUpdateResponse.from(updateSample);
 		} catch (DataIntegrityViolationException e) {
 			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {
 			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
+		} catch (ObjectOptimisticLockingFailureException e) {
+			throw new GlobalException(ErrorCode.CONFLICT_SAMPLE_DATA);
 		}
 	}
 

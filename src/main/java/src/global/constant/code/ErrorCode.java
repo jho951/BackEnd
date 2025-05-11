@@ -12,7 +12,9 @@ public enum ErrorCode {
 	BAD_REQUEST_SAMPLE_DATA(HttpStatus.BAD_REQUEST, Boolean.FALSE, 1000, "요청이 잘못되었습니다."),
 	BAD_RESPONSE_SAMPLE_DATA(HttpStatus.BAD_REQUEST, Boolean.FALSE, 1001, "입력이 잘못되었습니다."),
 	UNAUTHORIZED_SAMPLE_DATA(HttpStatus.UNAUTHORIZED,Boolean.FALSE,1002,"인증되지 않았습니다."),
-	NOT_FOUND_SAMPLE_DATA(HttpStatus.NOT_FOUND, Boolean.FALSE,1003,"형식은 맞지만 데이터가 존재하지 않습니다."),
+	NOT_FOUND_SAMPLE_DATA(HttpStatus.NOT_FOUND, Boolean.FALSE,1003,"찾는 데이터가 존재하지 않습니다."),
+	NOT_FOUND_SAMPLE_DATA_ID(HttpStatus.NOT_FOUND, Boolean.FALSE,1004,"찾는 데이터의 아이디가 존재하지 않습니다."),
+	CONFLICT_SAMPLE_DATA(HttpStatus.CONFLICT,Boolean.FALSE,1005,"다른 사용자가 데이터를 수정했습니다. 다시 시도해주세요."),
 
 	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, Boolean.FALSE, 9010, "인증 정보가 없습니다."),
 	INVALID_TOKEN(HttpStatus.UNAUTHORIZED,  Boolean.FALSE, 9011, "유효하지 않은 인증 토큰입니다."),

@@ -1,13 +1,13 @@
 package src.global.common.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
 	@CreatedDate
-	@Column(updatable = false, name = "created_at",nullable = false)
+	@Column(name = "created_at", updatable = false, nullable = false)
 	private LocalDateTime createDate;
 
 	@LastModifiedDate

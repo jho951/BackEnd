@@ -1,8 +1,8 @@
 package src.domain.sample.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +21,11 @@ public class SampleRequest {
 	public static class SampleCreateRequest {
 		@NotBlank(message = "content is required")
 		@Schema(description = "샘플 내용", example = "sample content")
-		private String content;
+		private String contents;
 
 		public Sample toCreateEntity() {
 			return Sample.builder()
-				.content(this.content)
+				.contents(this.contents)
 				.build();
 		}
 	}
@@ -35,25 +35,13 @@ public class SampleRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class SampleUpdateRequest {
-		@NotEmpty(message = "id is required")
+		@NotNull(message = "id is required")
 		@Schema(description = "샘플 도메인의 식별 아이디", example = "1")
 		private Long id;
 
-		@NotEmpty(message = "name is required")
+		@NotNull(message = "name is required")
 		@Schema(description = "샘플 내용", example = "sample content")
-		private String content;
-
-		@Version
-		@Schema(description = "샘플 도메인의 버전", example = "0")
-		private Long version;
-
-		public Sample toUpdateEntity(Sample sample) {
-			return Sample.builder()
-				.content(this.content)
-				.id(this.id)
-				.version(sample.getVersion())
-				.build();
-		}
+		private String contents;
 	}
 
 	@Getter

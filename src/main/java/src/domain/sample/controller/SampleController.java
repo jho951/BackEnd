@@ -35,7 +35,7 @@ public class SampleController {
     private final SampleService sampleService;
 
     @PostMapping("/create")
-    @Operation(summary = "sample create api", description = "sample entity를 생성합니다.")
+    @Operation(summary = "Create", description = "sample 생성")
     @ApiResponse(responseCode = "200", description = "성공적으로 생성하였습니다.")
     @Loggable(level = LogLevel.INFO, type = LogType.API)
     public GlobalResponse<SampleResponse.SampleCreateResponse> create(@RequestBody @Valid SampleRequest.SampleCreateRequest dto) {
@@ -44,7 +44,7 @@ public class SampleController {
     }
 
     @PutMapping("/update")
-    @Operation(summary = "sample update api", description = "sample entity를 수정합니다.")
+    @Operation(summary = "Update", description = "sample 수정")
     @ApiResponse(responseCode = "200", description = "성공적으로 수정하였습니다.")
     public GlobalResponse<SampleResponse.SampleUpdateResponse> update(@RequestBody SampleRequest.SampleUpdateRequest dto) {
         SampleResponse.SampleUpdateResponse response = sampleService.update(dto);
@@ -52,7 +52,7 @@ public class SampleController {
     }
 
     @GetMapping("/read")
-    @Operation(summary = "sample read api", description = "sample entity를 가져옵니다.")
+    @Operation(summary = "sample read api", description = "sample 출력")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
     public GlobalResponse<SampleResponse.SampleReadListResponse> read(
         @ModelAttribute @Valid SampleRequest.SampleReadRequest dto) {
@@ -61,7 +61,7 @@ public class SampleController {
     }
 
     @GetMapping("/read/detail/{id}")
-    @Operation(summary = "sample read by id api", description = "해당 id의 sample entity를 가져옵니다.")
+    @Operation(summary = "sample read by id api", description = "해당 id의 sample 출력")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
     public GlobalResponse<SampleResponse.SampleReadResponse> readDetail(@PathVariable Long id) {
         SampleResponse.SampleReadResponse response = sampleService.readDetail(id);
@@ -69,7 +69,7 @@ public class SampleController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "sample delete api", description = "sample entity를 삭제합니다.")
+    @Operation(summary = "sample delete api", description = "sample 삭제")
     @ApiResponse(responseCode = "200", description = "성공적으로 삭제했습니다.")
     public GlobalResponse<SampleResponse.SampleDeleteResponse> delete(@RequestBody SampleRequest.SampleDeleteRequest dto) {
         SampleResponse.SampleDeleteResponse response = sampleService.delete(dto);

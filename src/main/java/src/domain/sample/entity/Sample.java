@@ -1,12 +1,17 @@
 package src.domain.sample.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import src.global.common.entity.BaseEntity;
 
 @Entity
@@ -20,10 +25,10 @@ public class Sample extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+    @Column(name = "contents", nullable = false)
+    private String contents;
 
-    @Version
-    @Column(name = "version", nullable = false)
-    private Long version;
+    public void update(String contents) {
+        this.contents = contents;
+    }
 }

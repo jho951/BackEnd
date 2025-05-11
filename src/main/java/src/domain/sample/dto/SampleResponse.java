@@ -32,7 +32,7 @@ public class SampleResponse {
 
 		public static SampleCreateResponse from(Sample sample) {
 			return SampleCreateResponse.builder()
-				.content(sample.getContent())
+				.content(sample.getContents())
 				.build();
 		}
 	}
@@ -50,8 +50,7 @@ public class SampleResponse {
 
 		public static SampleUpdateResponse from(Sample sample) {
 			return SampleUpdateResponse.builder()
-				.content(sample.getContent())
-				.version(sample.getVersion())
+				.content(sample.getContents())
 				.build();
 		}
 	}
@@ -73,10 +72,9 @@ public class SampleResponse {
 		public static SampleReadResponse from(Sample sample) {
 			return SampleReadResponse.builder()
 				.id(sample.getId())
-				.content(sample.getContent())
+				.content(sample.getContents())
 				.createdAt(sample.getCreateDate())
 				.updatedAt(sample.getModifiedDate())
-				.version(sample.getVersion())
 				.build();
 		}
 	}

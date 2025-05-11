@@ -3,13 +3,14 @@ package src.domain.user.dto;
 
 import static src.domain.user.constant.UserStatus.*;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -26,30 +27,27 @@ public class UserRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class UserCreateRequest {
-		@NotEmpty(message = "id is required")
-		private Long id;
 
-		@NotEmpty(message = "email is required")
+		@NotBlank(message = "email is required")
 		private String email;
 
-		@NotEmpty(message = "name is required")
+		@NotBlank(message = "name is required")
 		private String name;
 
-		@NotEmpty(message = "password is required")
+		@NotBlank(message = "password is required")
 		private String password;
 
-		@NotEmpty(message = "role is required")
+		@NotNull(message = "role is required")
 		private UserRole role;
 
-		@NotEmpty(message = "userStatus is required")
+		@NotNull(message = "userStatus is required")
 		private UserStatus userStatus;
 
-		@NotEmpty(message = "socialType is required")
+		@NotNull(message = "socialType is required")
 		private UserSocial socialType;
 
 		public User toCreateEntity(){
 			return User.builder()
-				.id(this.id)
 				.email(this.email)
 				.name(this.name)
 				.password(this.password)
@@ -71,10 +69,11 @@ public class UserRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class UserDeleteRequest {
-		@NotEmpty(message = "id is required")
+		@NotNull(message = "id is required")
 		@Schema(description = "유저 도메인의 식별 아이디", example = "1")
 		private Long id;
 
+		@NotNull(message = "isDeleted is required")
 		@Column(name ="isDeleted", nullable = false)
 		@Schema(description = "유저 삭제 여부", example = "false")
 		private Boolean isDeleted;
