@@ -28,12 +28,18 @@ import src.global.common.dto.GlobalResponse;
 import src.global.constant.log.LogType;
 
 @RestController
-@RequestMapping("/v1/sample")
+@RequestMapping("api/v1/sample")
 @RequiredArgsConstructor
 @Tag(name = "Sample Controller", description = "This is an sample controller")
 public class SampleController {
     private final SampleService sampleService;
 
+    /**
+     * sample 생성
+     *
+     * @param dto createRequestDto
+     * @return SuccessCode, response
+     */
     @PostMapping("/create")
     @Operation(summary = "Create", description = "sample 생성")
     @ApiResponse(responseCode = "200", description = "성공적으로 생성하였습니다.")
@@ -42,7 +48,12 @@ public class SampleController {
         SampleResponse.SampleCreateResponse response = sampleService.create(dto);
         return GlobalResponse.ok(SuccessCode.SUCCESS, response);
     }
-
+    /**
+     * sample 수정
+     *
+     * @param dto updateRequestDto
+     * @return SuccessCode, response
+     */
     @PutMapping("/update")
     @Operation(summary = "Update", description = "sample 수정")
     @ApiResponse(responseCode = "200", description = "성공적으로 수정하였습니다.")
@@ -50,7 +61,12 @@ public class SampleController {
         SampleResponse.SampleUpdateResponse response = sampleService.update(dto);
         return GlobalResponse.ok(SuccessCode.SUCCESS,response);
     }
-
+    /**
+     * sample 조회
+     *
+     * @param dto readRequestDto
+     * @return SuccessCode, response
+     */
     @GetMapping("/read")
     @Operation(summary = "sample read api", description = "sample 출력")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
@@ -59,7 +75,12 @@ public class SampleController {
         SampleResponse.SampleReadListResponse response = sampleService.read(dto);
         return GlobalResponse.ok(SuccessCode.SUCCESS, response);
     }
-
+    /**
+     * sample 상세
+     *
+     * @param id sample id
+     * @return SuccessCode, response
+     */
     @GetMapping("/read/detail/{id}")
     @Operation(summary = "sample read by id api", description = "해당 id의 sample 출력")
     @ApiResponse(responseCode = "200", description = "성공적으로 가져왔습니다.")
@@ -67,7 +88,12 @@ public class SampleController {
         SampleResponse.SampleReadResponse response = sampleService.readDetail(id);
         return GlobalResponse.ok(SuccessCode.SUCCESS, response);
     }
-
+    /**
+     * sample 상세
+     *
+     * @param dto deleteRequestDto
+     * @return SuccessCode, response
+     */
     @DeleteMapping("/delete")
     @Operation(summary = "sample delete api", description = "sample 삭제")
     @ApiResponse(responseCode = "200", description = "성공적으로 삭제했습니다.")

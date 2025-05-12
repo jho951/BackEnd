@@ -1,10 +1,15 @@
 package src.global.utils;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Component
 public class PasswordUtil {
-	private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	private static PasswordEncoder passwordEncoder;
+
+	public PasswordUtil(PasswordEncoder passwordEncoder) {
+		PasswordUtil.passwordEncoder = passwordEncoder;
+	}
 
 	/**
 	 * 평문 비밀번호를 BCrypt 해시로 인코딩합니다.
