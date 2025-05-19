@@ -1,5 +1,6 @@
 package src.global.constant.code;
 
+import co.elastic.clients.elasticsearch.nodes.Http;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,15 @@ public enum ErrorCode {
 	NOT_FOUND_SAMPLE_DATA(HttpStatus.NOT_FOUND, Boolean.FALSE,1003,"찾는 데이터가 존재하지 않습니다."),
 	NOT_FOUND_SAMPLE_DATA_ID(HttpStatus.NOT_FOUND, Boolean.FALSE,1004,"찾는 데이터의 아이디가 존재하지 않습니다."),
 	CONFLICT_SAMPLE_DATA(HttpStatus.CONFLICT,Boolean.FALSE,1005,"다른 사용자가 데이터를 수정했습니다. 다시 시도해주세요."),
+
+	// 오류 종류 : 상품 도메인 에러 (2000 ~ 2999)
+	BAD_REQUEST_PRODUCT_DATA(HttpStatus.BAD_REQUEST, Boolean.FALSE, 2000, "요청이 잘못되었습니다."),
+	BAD_RESPONSE_PRODUCT_DATA(HttpStatus.BAD_REQUEST, Boolean.FALSE, 2001, "입력이 잘못되었습니다."),
+	UNAUTHORIZED_PRODUCT_DATA(HttpStatus.UNAUTHORIZED,Boolean.FALSE,2002,"인증되지 않았습니다."),
+	NOT_FOUND_PRODUCT_DATA(HttpStatus.NOT_FOUND, Boolean.FALSE,2003,"찾는 데이터가 존재하지 않습니다."),
+	NOT_FOUND_PRODUCT_DATA_ID(HttpStatus.NOT_FOUND, Boolean.FALSE,2004,"찾는 데이터의 아이디가 존재하지 않습니다."),
+	CONFLICT_PRODUCT_DATA(HttpStatus.CONFLICT,Boolean.FALSE,2005,"다른 사용자가 데이터를 수정했습니다. 다시 시도해주세요."),
+	NOT_FOUND_PRODUCT_TYPE(HttpStatus.NOT_FOUND, Boolean.FALSE,2006, "상품 타입이 잘못되었습니다."),
 
 	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, Boolean.FALSE, 9010, "인증 정보가 없습니다."),
 	INVALID_TOKEN(HttpStatus.UNAUTHORIZED,  Boolean.FALSE, 9011, "유효하지 않은 인증 토큰입니다."),

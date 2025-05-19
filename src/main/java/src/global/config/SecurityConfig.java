@@ -28,10 +28,19 @@ public class SecurityConfig {
 			// ✅ 모든 HTTP 요청 조건
 			.authorizeHttpRequests(auth ->
 				auth
-					.requestMatchers("/api/v1/**").permitAll() // 공개 API는 모두 허용
-					.requestMatchers("/api/v1/auth/**").authenticated() // 인증된 사용자만 접근 가능
-					.requestMatchers("/api/admin/**").hasRole(UserRole.ROLE_ADMIN.getValue()) // ADMIN 역할만 접근 가능
-					.anyRequest().denyAll() // 나머지 요청은 모두 거부 (또는 authenticated())
+					// ✅ 공개 API 모두 허용
+					.requestMatchers("/api/v1/**").permitAll()
+					// ✅ ADMIN 역할만 접근 가능
+					.requestMatchers("/api/admin/**").hasRole(UserRole.ROLE_ADMIN.getValue())
+					// ✅ Swagger 관련 경로 허용
+					.requestMatchers(
+						"/v3/api-docs/**",
+						"/swagger-ui/**",
+						"/swagger-resources/**",
+						"/webjars/**"
+					).permitAll()
+					// ✅ 나머지 요청은 모두 거부 (또는 authenticated())
+					.anyRequest().denyAll()
 			)
 			// .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			// ✅ 로그인 폼 비활성화 (HTML 페이지 X, API 기반 로그인)
@@ -47,5 +56,4 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

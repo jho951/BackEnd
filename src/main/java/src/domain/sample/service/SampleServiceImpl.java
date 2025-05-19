@@ -22,7 +22,6 @@ import src.global.exception.GlobalException;
 import src.global.constant.code.ErrorCode;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class SampleServiceImpl implements SampleService {
 	private final SampleRepository sampleRepository;
