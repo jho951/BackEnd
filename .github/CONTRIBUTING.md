@@ -16,6 +16,9 @@
 
 ---
 
+## 👉문제
+문제가 발생하면 [.github/TROUBLESHOOTING.md](.github/TROUBLESHOOTING.md)를 참고해주세요.
+
 ## 📦 프로젝트 세팅
 
 1. 리포지토리를 포크(Fork)하세요
@@ -145,4 +148,3 @@ public class PostCreateRequest(String title, String content) {...}
 기여 중 문의사항이 있으면 이슈에 자유롭게 남겨주세요!
 
 혹은 이메일: <b>jho951@naver.com</b>
-
