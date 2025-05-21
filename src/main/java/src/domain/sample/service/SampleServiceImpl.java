@@ -2,7 +2,6 @@ package src.domain.sample.service;
 
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
 import jakarta.persistence.PersistenceException;
@@ -45,7 +44,7 @@ public class SampleServiceImpl implements SampleService {
 		try {
 			Sample updateSample = sampleRepository.findById(dto.getId())
 				.orElseThrow(() -> new GlobalException(ErrorCode.NOT_FOUND_SAMPLE_DATA_ID));
-			updateSample.update(dto.getContents());
+			updateSample.update(dto);
 			return SampleResponse.SampleUpdateResponse.from(updateSample);
 		} catch (DataIntegrityViolationException e) {
 			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);

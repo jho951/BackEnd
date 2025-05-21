@@ -17,6 +17,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import src.domain.product.constant.ProductType;
+import src.domain.product.dto.ProductRequest;
+import src.domain.product.dto.ProductResponse;
 import src.global.common.entity.BaseAuthEntity;
 
 @Entity
@@ -46,4 +48,12 @@ public class Product extends BaseAuthEntity {
 	@Version
 	@Builder.Default
 	private int version = 0;
+
+	public Product update(ProductRequest.ProductUpdateRequest dto) {
+		this.title = dto.getTitle();
+		this.contents = dto.getContents();
+		this.price = dto.getPrice();
+		this.productType = dto.getProductType();
+		return this;
+	}
 }

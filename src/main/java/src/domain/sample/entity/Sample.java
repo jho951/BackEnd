@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import src.domain.sample.dto.SampleRequest;
 import src.global.common.entity.BaseEntity;
 
 @Entity
@@ -28,7 +29,8 @@ public class Sample extends BaseEntity {
     @Column(name = "contents", nullable = false)
     private String contents;
 
-    public void update(String contents) {
-        this.contents = contents;
+    public Sample update(SampleRequest.SampleUpdateRequest dto) {
+        this.contents = dto.getContents();
+        return this;
     }
 }

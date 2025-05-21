@@ -5,4 +5,5 @@ import src.domain.product.dto.ProductResponse;
 
 public interface ProductService {
 	ProductResponse.ProductCreateResponse create(ProductRequest.ProductCreateRequest dto);
+	ProductResponse.ProductUpdateResponse update(ProductRequest.ProductUpdateRequest dto);
 }

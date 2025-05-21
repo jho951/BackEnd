@@ -49,12 +49,12 @@ public class ProductController {
 	 * @param dto createRequestDto
 	 * @return SuccessCode, response
 	 */
-	@PostMapping("/create")
-	@Operation(summary = "Create", description = "product 생성")
-	@ApiResponse(responseCode = "200", description = "성공적으로 생성하였습니다.")
+	@PostMapping("/update")
+	@Operation(summary = "Update", description = "product 수정")
+	@ApiResponse(responseCode = "200", description = "성공적으로 수정하였습니다.")
 	@Loggable(level = LogLevel.INFO, type = LogType.API)
-	public GlobalResponse<ProductResponse.ProductCreateResponse> create(@RequestBody @Valid ProductRequest.ProductCreateRequest dto) {
-		ProductResponse.ProductCreateResponse response = productService.create(dto);
+	public GlobalResponse<ProductResponse.ProductUpdateResponse> update(@RequestBody @Valid ProductRequest.ProductUpdateRequest dto) {
+		ProductResponse.ProductUpdateResponse response = productService.update(dto);
 		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
 	}
 }
