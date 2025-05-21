@@ -46,6 +46,7 @@ public class ProductRequest {
 				.build();
 		}
 	}
+
 	@Getter
 	@Builder
 	@NoArgsConstructor
@@ -74,6 +75,10 @@ public class ProductRequest {
 		@NotNull(message = "createdBy is required")
 		@Schema(description = "상품 생성자", example = "user")
 		private String createdBy;
+
+		@NotNull(message = "modified_by is required")
+		@Schema(description = "상품 수정자", example = "user")
+		private String modifiedBy;
 
 		@NotNull(message = "isDeleted is required")
 		@Schema(description = "상품 삭제 여부", example = "false")
