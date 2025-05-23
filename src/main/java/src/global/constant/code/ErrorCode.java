@@ -38,4 +38,5 @@ public enum ErrorCode {
 	private final Boolean isSuccess;
 	private final int code;
 	private final String message;
+
 }

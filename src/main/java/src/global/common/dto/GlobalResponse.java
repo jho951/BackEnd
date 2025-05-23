@@ -68,17 +68,4 @@ public final class GlobalResponse<T> {
 			null
 		);
 	}
-
-	public static GlobalResponse<Void> fail(ErrorCode errorCode, String message) {
-		if (errorCode == null || message == null) {
-			throw new IllegalArgumentException("HTTP 상태와 메시지는 null일 수 없습니다.");
-		}
-		return new GlobalResponse<>(
-			errorCode.getHttpStatus(),
-			errorCode.getIsSuccess(),
-			message,
-			errorCode.getCode(),
-			null
-		);
-	}
 }

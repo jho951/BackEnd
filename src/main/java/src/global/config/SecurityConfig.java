@@ -1,5 +1,6 @@
 package src.global.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 import src.domain.user.constant.UserRole;
+import src.global.common.security.exception.CustomAccessDeniedHandler;
+import src.global.common.security.exception.CustomAuthenticationEntryPoint;
 
 /**
  *
@@ -19,6 +22,12 @@ import src.domain.user.constant.UserRole;
 @Configuration // Spring Bean 구성 클래스
 @EnableWebSecurity // Spring Security 활성화
 public class SecurityConfig {
+
+	@Autowired
+	private CustomAccessDeniedHandler accessDeniedHandler;
+
+	@Autowired
+	private CustomAuthenticationEntryPoint authenticationEntryPoint;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,7 +48,10 @@ public class SecurityConfig {
 			// ✅ Basic 인증 비활성화 (JWT 사용)
 			.httpBasic(AbstractHttpConfigurer::disable)
 			// ✅ 세션 비활성화 (서버가 사용자 상태를 저장 없이 JWT 적용)
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	  		.exceptionHandling(exception -> exception
+				.accessDeniedHandler(accessDeniedHandler)
+				.authenticationEntryPoint(authenticationEntryPoint));
 		return http.build();
 	}
 
@@ -47,5 +59,7 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+
 
 }
