@@ -1,12 +1,14 @@
 spring:
   application:
-    name: backend
+    name: portfolio
+
   config:
     import:
-      - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_db.yml
-      - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_server.yml
       - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_auth.yml
+      - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_db.yml
       - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_docs.yml
+      - optional:classpath:${spring.profiles.active}/application-${spring.profiles.active}_server.yml
+
   profiles:
     group:
       dev: [ "dev_auth", "dev_db", "dev_server" ,"dev_docs" ]

@@ -17,7 +17,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * {@code CustomAuthenticationEntryPoint}는 사용자가 인증되지 않은 상태에서 보호된 리소스에 접근할 경우,
+ * {@code CustomAuthenticationDeniedHandler}는 사용자가 인증되지 않은 상태에서 보호된 리소스에 접근할 경우,
  * HTTP 401 Unauthorized 상태 코드와 함께 표준화된 JSON 응답을 반환하는 클래스입니다.
  * <p>
  * {@link AuthenticationEntryPoint} 인터페이스를 구현하여 Spring Security의 인증 실패 상황을 처리합니다.

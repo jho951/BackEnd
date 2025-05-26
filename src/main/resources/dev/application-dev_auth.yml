@@ -1,3 +1,7 @@
-security:
-  basic:
-    enabled: false
+jwt:
+  accessToken:
+    secret: ${JWT_ACCESS_TOKEN_SECRET}
+    expirationSeconds: ${JWT_ACCESS_EXPIRATION:1200}
+  refreshToken:
+    secret: ${JWT_REFRESH_TOKEN_SECRET}
+    expirationSeconds: ${JWT_REFRESH_EXPIRATION:30000}

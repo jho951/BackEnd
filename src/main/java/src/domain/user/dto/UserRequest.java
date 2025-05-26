@@ -70,8 +70,8 @@ public class UserRequest {
 	@AllArgsConstructor
 	public static class UserDeleteRequest {
 		@NotNull(message = "id is required")
-		@Schema(description = "유저 도메인의 식별 아이디", example = "1")
-		private Long id;
+		@Schema(description = "유저 도메인의 식별 아이디", example = "1ade2df3fs2e12r")
+		private String id;
 
 		@NotNull(message = "isDeleted is required")
 		@Column(name ="isDeleted", nullable = false)

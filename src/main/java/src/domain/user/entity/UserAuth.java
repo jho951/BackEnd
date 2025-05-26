@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import lombok.experimental.SuperBuilder;
+import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserSocial;
 import src.global.common.entity.BaseAuthEntity;
 
@@ -27,8 +28,9 @@ import src.global.common.entity.BaseAuthEntity;
 @Table(name = "user_auth")
 public class UserAuth extends BaseAuthEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", nullable = false, updatable = false)
+	private String id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "socialType", nullable = false)
@@ -40,4 +42,9 @@ public class UserAuth extends BaseAuthEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", nullable = false)
+	private UserRole role;
+
 }

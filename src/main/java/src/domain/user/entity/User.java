@@ -32,8 +32,9 @@ import src.global.common.entity.BaseEntity;
 @Table(name = "users")
 public class User extends BaseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", nullable = false, updatable = false)
+	private String id;
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
@@ -44,9 +45,6 @@ public class User extends BaseEntity {
 	@Column(name = "password")
 	private String password;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "role", nullable = false)
-	private UserRole role;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="status",nullable = false)
