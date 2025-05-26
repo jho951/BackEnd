@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotEmpty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import src.domain.user.constant.UserRole;
-import src.domain.user.constant.UserSocial;
+import src.domain.user.constant.UserSocialType;
 import src.domain.user.constant.UserStatus;
 import src.domain.user.entity.User;
 import src.domain.user.entity.UserAuth;
@@ -45,7 +45,7 @@ public class UserRequest {
 		private UserStatus userStatus;
 
 		@NotEmpty(message = "socialType is required")
-		private UserSocial socialType;
+		private UserSocialType socialType;
 
 		public User toCreateEntity(){
 			return User.builder()

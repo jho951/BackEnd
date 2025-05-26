@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,9 +42,6 @@ public class User extends BaseEntity {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "password")
-	private String password;
-
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role", nullable = false)
 	private UserRole role;
@@ -53,6 +51,10 @@ public class User extends BaseEntity {
 	private UserStatus status;
 
 	@Builder.Default
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private UserAuth userAuth;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserAuth> userAuthList= new ArrayList<>();
+	@Builder.Default
+	private List<UserSocial> userSocialList = new ArrayList<>();
 }
