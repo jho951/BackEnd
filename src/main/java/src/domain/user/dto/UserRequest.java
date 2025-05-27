@@ -1,23 +1,25 @@
 package src.domain.user.dto;
 
+import java.util.UUID;
 
-import static src.domain.user.constant.UserStatus.*;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotEmpty;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import src.domain.user.constant.UserRole;
-import src.domain.user.constant.UserSocial;
-import src.domain.user.constant.UserStatus;
 import src.domain.user.entity.User;
 import src.domain.user.entity.UserAuth;
+import src.domain.user.entity.UserSocial;
+import src.domain.user.constant.UserStatus;
+import src.domain.user.constant.UserSocialType;
 
 public class UserRequest {
 
@@ -26,44 +28,67 @@ public class UserRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class UserCreateRequest {
-		@NotEmpty(message = "id is required")
-		private Long id;
+		@NotNull(message = "id is required")
+		@Schema(description = "유저 식별 아이디", example = "0x123E4567E89B12D3A456426614174000")
+		private UUID id;
 
-		@NotEmpty(message = "email is required")
+		@NotBlank(message = "email is required")
+		@Schema(description = "유저 이메일", example = "useremail@example.com")
 		private String email;
 
-		@NotEmpty(message = "name is required")
+		@NotBlank(message = "name is required")
+		@Schema(description = "유저 이메일", example = "홍길동")
 		private String name;
 
-		@NotEmpty(message = "password is required")
+		@NotBlank(message = "password is required")
+		@Schema(description = "유저 비밀번호", example = "test1234!")
 		private String password;
 
-		@NotEmpty(message = "role is required")
-		private UserRole role;
-
-		@NotEmpty(message = "userStatus is required")
-		private UserStatus userStatus;
-
-		@NotEmpty(message = "socialType is required")
-		private UserSocial socialType;
-
-		public User toCreateEntity(){
+		public User toUserEntity(){
 			return User.builder()
 				.id(this.id)
 				.email(this.email)
 				.name(this.name)
-				.password(this.password)
-				.role(this.role)
-				.status(ACTIVE)
+				.role(UserRole.ROLE_USER)
+				.status(UserStatus.ACTIVE)
 				.build();
 		}
 
-		public UserAuth toCreateUserAuthEntity(User user){
+		public UserAuth toAuthEntity(User user) {
 			return UserAuth.builder()
 				.user(user)
-				.socialType(this.socialType)
+				.password(this.password)
 				.build();
 		}
+
+		public UserSocial toSocialEntity(User user) {
+			return UserSocial.builder()
+				.user(user)
+				.socialType(UserSocialType.DEFAULT)
+				.build();
+		}
+	}
+
+	@Getter
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class UserUpdateRequest {
+		@NotNull(message = "id is required")
+		@Schema(description = "유저 식별 아이디", example = "0x123E4567E89B12D3A456426614174000")
+		private UUID id;
+
+		@NotBlank(message = "email is required")
+		@Schema(description = "유저 이메일", example = "useremail@example.com")
+		private String email;
+
+		@NotBlank(message = "name is required")
+		@Schema(description = "유저 이메일", example = "홍길동")
+		private String name;
+
+		@NotBlank(message = "password is required")
+		@Schema(description = "유저 비밀번호", example = "test1234!")
+		private String password;
+
 	}
 
 	@Getter
