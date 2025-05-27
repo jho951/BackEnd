@@ -23,10 +23,4 @@ public class UserController {
 		UserResponse.UserCreateResponse response = userService.create(dto);
 		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
 	}
-
-	// @PutMapping("/cancel")
-	// public BaseResponseWrapper<UserResponse.UserDeleteResponse> cancel(UserRequest.UserDeleteRequest dto) {
-	// 	UserResponse.UserDeleteResponse response = userService.delete(dto);
-	// 	return BaseResponseWrapper.ok(SuccessCode.SUCCESS, response);
-	// }
 }

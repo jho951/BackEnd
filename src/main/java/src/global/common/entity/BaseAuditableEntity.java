@@ -20,8 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class BaseAuthEntity extends BaseEntity {
-
+public class BaseAuditableEntity extends BaseEntity {
 	@CreatedBy
 	@Column(updatable = false, name = "created_by",nullable = false)
 	private String createdBy;

@@ -10,6 +10,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+<<<<<<< HEAD
+=======
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+>>>>>>> 1e02152c4bfbca38186d51712b54d91bf888833e
 
 import src.domain.user.constant.UserRole;
 import src.global.common.security.exception.CustomAccessDeniedHandler;
@@ -68,5 +74,12 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
+<<<<<<< HEAD
 
+=======
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+>>>>>>> 1e02152c4bfbca38186d51712b54d91bf888833e
 }

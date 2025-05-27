@@ -5,6 +5,20 @@
 이 문서는 프로젝트 간단한 안내서입니다.
 
 ---
+## 📦 프로젝트 세팅
+
+1. 리포지토리를 포크(Fork)하세요
+2. 로컬에 클론(Clone)하세요
+3. root 레벨 터미널에서 <b>"./start.sh"</b> 입력해 docker compose 실행
+4. 종료 시 root 레벨 터미널에서 <b>"./shutdown.sh"</b> 입력해 docker compose 종료 
+5. 운영 환경 실행 시 Dockerfile에서 CMD ["--spring.profiles.active=prod"]로 수정 
+6. docker run your-image-name --spring.profiles.active=prod 입력
+
+### docker compose 실행 법
+root 레벨에서 터미널에 "./start.sh" 입력
+
+### docker compose 내리는 법
+root 레벨에서 터미널에 "./shutdown.sh" 입력
 
 ## ✨ 기여 가능한 항목
 
@@ -16,10 +30,7 @@
 
 ---
 
-## 📦 프로젝트 세팅
 
-1. 리포지토리를 포크(Fork)하세요
-2. 로컬에 클론(Clone)하세요
 
 ```bash
 git clone https://github.com/yourname/your-repo.git
@@ -34,7 +45,7 @@ cd your-repo
 ---
 
 ## 🌱 브랜치 전략
-본 프로젝트는 <b>GitHub Flow</b> 전략을 채택하고 있습니다. 
+본 프로젝트는 <b>GitHub Flow</b> 전략을 채택하고 있습니다.
 
 새로운 기능/수정 작업은 <b>main 브랜치</b>에서 분기해서 작업해주세요:
 
@@ -73,18 +84,39 @@ fix: 로그인 오류 처리 로직 수정
 docs: README에 실행 방법 추가
 ```
 
-## ✅ Pull Request 보내기
-1. main 브랜치 기준으로 작업 브랜치를 만들어 주세요 
-2. 작성 후 main으로 Pull Request를 생성해주세요 
-3. PR 설명에 변경 내용, 테스트 방법 등을 명확하게 작성해주세요 
-4. 리뷰어가 확인 후 머지됩니다 🎉
+## 🔐 브랜치 보호 및 병합 규칙 안내
+### ✏️ 참고
+규칙은 GitHub의 Branch protection rules 및 Rulesets 기능 기반으로 설정되어 있습니다.
+
+규칙 위반 시 병합이 차단되며, 관리자에게 요청해야 할 수 있습니다.
+
+### ✅ Pull Request 보내기
+1. 모든 변경사항은 반드시 PR을 통해 병합되어야 합니다. (직접 main 브랜치에 push 금지)
+2. main 브랜치 기준으로 작업 브랜치를 만들어 주세요
+3. 작성 후 main으로 Pull Request를 생성해주세요
+4. PR 설명에 변경 내용, 테스트 방법 등을 명확하게 작성해주세요
+5. PR은 최소 1명 이상의 승인(Approve) 을 받아야 병합할 수 있습니다.
+6. PR에 새로운 커밋을 push하면, 이전에 받은 승인 리뷰는 자동으로 무효화됩니다.
+7. 가장 마지막에 push된 커밋은 본인이 아닌 다른 사람의 승인을 받아야 합니다.
+8. PR에 남긴 모든 리뷰 코멘트(대화)는 해결된 상태여야 병합할 수 있습니다.
+9. 리뷰어가 확인 후 머지됩니다 🎉.
+
+### ✅ 테스트 및 배포 관련 규칙
+1. PR은 사전에 설정된 테스트/빌드(Status Checks) 를 모두 통과해야 합니다.
+2. 특정 환경(예: production)으로의 배포가 성공해야 PR을 병합할 수 있습니다.
+3. 단, 브랜치 생성 시에는 상태 검사가 없어도 생성은 허용됩니다.
+
+### ✅ 커밋 및 병합 방식 관련 규칙
+1. 강제 푸시(push --force)는 금지되어 있습니다.
+2. Merge commit은 허용되지 않으며, Squash merge 또는 Rebase merge만 사용할 수 있습니다.
+3. PR 대상 브랜치는 항상 최신 상태(main과 동기화) 여야 병합할 수 있습니다.
 
 ## 🧼 코드 스타일
 1. Java 17 기반 (Gradle 프로젝트)
 2. IDE에서 자동 포맷팅 권장 (IntelliJ 사용 시 Google Java Style 적용 가능)
-3. 가능하면 Lombok 사용 시 @Builder, @Getter, @Slf4j 등 일관성 유지 
-4. Google Java Style 또는 네이버 핵데이 Java 코딩 컨벤션 권장 
-5. IntelliJ 사용 시 XML 포맷 적용 가능 
+3. 가능하면 Lombok 사용 시 @Builder, @Getter, @Slf4j 등 일관성 유지
+4. Google Java Style 또는 네이버 핵데이 Java 코딩 컨벤션 권장
+5. IntelliJ 사용 시 XML 포맷 적용 가능
 6. 개행 문자: LF (\n)
 
 ## ❗ 추가 사항
