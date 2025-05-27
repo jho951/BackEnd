@@ -1,11 +1,9 @@
 package src.domain.user.entity;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.ArrayList;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +15,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -32,9 +33,11 @@ import src.global.common.entity.BaseEntity;
 @AllArgsConstructor
 @Table(name = "users")
 public class User extends BaseEntity {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+	private UUID id;
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
@@ -47,10 +50,9 @@ public class User extends BaseEntity {
 	private UserRole role;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="status",nullable = false)
+	@Column(name= "status",nullable = false)
 	private UserStatus status;
 
-	@Builder.Default
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private UserAuth userAuth;
 

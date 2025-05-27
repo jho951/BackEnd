@@ -1,8 +1,12 @@
 package src.domain.user.entity;
 
-import jakarta.persistence.*;
+import java.util.UUID;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import jakarta.persistence.*;
+
 import src.domain.user.constant.UserSocialType;
 import src.global.common.entity.BaseAuditableEntity;
 
@@ -15,8 +19,9 @@ import src.global.common.entity.BaseAuditableEntity;
 public class UserSocial extends BaseAuditableEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+	private UUID id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "social_type", nullable = false)
