@@ -1,1 +1,1 @@
-# 📬 CONTRIBUTING 꼭 필독해주세요!
+# 📬 CONTRIBUTING 확인해주세요.
