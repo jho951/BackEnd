@@ -15,7 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import src.global.common.security.jwt.JwtTokenProvider;
+import src.global.common.security.auth.utils.JwtTokenProvider;
 
 /**
  * OncePerRequestFilter // 요청마다 단 한 번만 실행되는 필터.

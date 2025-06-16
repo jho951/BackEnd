@@ -51,26 +51,6 @@ public class CustomUser implements UserDetails {
 		return List.of(new SimpleGrantedAuthority(user.getRole().name()));
 	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
 	public void setLogin() {
 		SecurityContextHolder.getContext().setAuthentication(
 			new UsernamePasswordAuthenticationToken(this, null, getAuthorities())

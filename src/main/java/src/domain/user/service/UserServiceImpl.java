@@ -3,14 +3,14 @@ package src.domain.user.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import jakarta.persistence.PersistenceException;
 
@@ -19,12 +19,12 @@ import src.domain.user.entity.UserAuth;
 import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.entity.UserSocial;
-import src.global.common.security.jwt.JwtTokenProvider;
 import src.global.constant.code.ErrorCode;
 import src.global.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
 import src.domain.user.repository.UserAuthRepository;
 import src.domain.user.repository.UserSocialRepository;
+import src.global.common.security.auth.utils.JwtTokenProvider;
 
 @Service
 @Slf4j

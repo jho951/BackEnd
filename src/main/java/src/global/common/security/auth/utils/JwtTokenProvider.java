@@ -1,4 +1,4 @@
-package src.global.common.security.jwt;
+package src.global.common.security.auth.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
