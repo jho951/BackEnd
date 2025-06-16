@@ -1,5 +1,7 @@
 package src.global.common.security.exception;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
@@ -11,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import src.global.common.dto.GlobalResponse;
 import src.global.constant.code.ErrorCode;
-
-import java.io.IOException;
+import src.global.common.dto.GlobalResponse;
 
 /**
  * {@code CustomAccessDeniedHandler}는 사용자가 인증되었지만,

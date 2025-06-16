@@ -1,14 +1,13 @@
 package src.domain.sample.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import src.domain.sample.entity.Sample;
 
@@ -19,7 +18,7 @@ public class SampleRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class SampleCreateRequest {
-		@NotBlank(message = "content is required")
+		@NotNull(message = "content is required")
 		@Schema(description = "샘플 내용", example = "sample content")
 		private String contents;
 
@@ -49,15 +48,9 @@ public class SampleRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class SampleReadRequest {
-		@NotBlank(message = "id is required")
+		@NotNull(message = "id is required")
 		@Schema(description = "샘플 도메인의 식별 아이디", example = "1")
 		private Long id;
-
-		public Sample toReadEntity() {
-			return Sample.builder()
-				.id(this.id)
-				.build();
-		}
 	}
 
 	@Getter
@@ -65,7 +58,7 @@ public class SampleRequest {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class SampleDeleteRequest {
-		@NotEmpty(message = "id is required")
+		@NotNull(message = "id is required")
 		@Schema(description = "샘플 도메인의 식별 아이디", example = "1")
 		private Long id;
 

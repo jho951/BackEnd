@@ -1,20 +1,20 @@
 package src.global.common.security.exception;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import src.global.common.dto.GlobalResponse;
-import src.global.constant.code.ErrorCode;
-
+import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import src.global.constant.code.ErrorCode;
+import src.global.common.dto.GlobalResponse;
 
 /**
  * {@code CustomAuthenticationDeniedHandler}는 사용자가 인증되지 않은 상태에서 보호된 리소스에 접근할 경우,

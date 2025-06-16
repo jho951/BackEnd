@@ -18,8 +18,8 @@ import src.domain.sample.dto.SampleRequest;
 import src.domain.sample.dto.SampleResponse;
 import src.domain.sample.repository.SampleRepository;
 
-import src.global.exception.GlobalException;
 import src.global.constant.code.ErrorCode;
+import src.global.exception.GlobalException;
 
 @Service
 @Slf4j
@@ -60,8 +60,7 @@ public class SampleServiceImpl implements SampleService {
 	@Transactional(readOnly = true)
 	@Override
 	public SampleResponse.SampleReadListResponse read(SampleRequest.SampleReadRequest dto) {
-		Long id = dto.toReadEntity().getId();
-		if (id == null) {
+		if (dto.getId() == null) {
 			try {
 				List<Sample> samples = sampleRepository.findAll();
 				return SampleResponse.SampleReadListResponse.from(samples);
@@ -70,7 +69,7 @@ public class SampleServiceImpl implements SampleService {
 			}
 		}else {
 			try {
-				Sample sample = sampleRepository.findById(id)
+				Sample sample = sampleRepository.findById(dto.getId())
 					.orElseThrow(() -> new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA));
 				return SampleResponse.SampleReadListResponse.from(sample);
 			}catch (EntityNotFoundException e) {

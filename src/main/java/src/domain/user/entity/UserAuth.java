@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
+import src.global.common.entity.BaseAuditableEntity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

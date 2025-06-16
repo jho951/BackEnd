@@ -10,15 +10,21 @@ import src.global.constant.code.ErrorCode;
 import src.global.constant.code.SuccessCode;
 
 @Getter
+@Schema(description = "공통 응답 구조")
 public final class GlobalResponse<T> {
+
 	@Schema(description = "HTTP 상태 코드", example = "200")
 	private final HttpStatus httpStatus;
+
 	@Schema(description = "성공 여부", example = "true")
 	private final Boolean isSuccess;
+
 	@Schema(description = "응답 메시지", example = "요청이 성공적으로 처리되었습니다.")
 	private final String message;
+
 	@Schema(description = "비즈니스 코드", example = "1000")
 	private final int code;
+
 	@Schema(description = "응답 데이터")
 	private final T data;
 

@@ -12,10 +12,10 @@ import jakarta.validation.constraints.NotBlank;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import src.domain.user.constant.UserRole;
 import src.domain.user.entity.User;
 import src.domain.user.entity.UserAuth;
 import src.domain.user.entity.UserSocial;
+import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserStatus;
 import src.domain.user.constant.UserSocialType;
 
