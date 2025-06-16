@@ -1,22 +1,22 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
-    hikari:
-      maximum-pool-size: 5
-      minimum-idle: 1
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-        default_batch_fetch_size: 100
+datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: ${MYSQL_URL}
+  username: ${MYSQL_USER}
+  password: ${MYSQL_PASSWORD}
+  hikari:
+    maximum-pool-size: 5
+    minimum-idle: 1
 
-  elasticsearch:
-    uris: ${ELASTICSEARCH_URL}
+jpa:
+  open-in-view: false
+  hibernate:
+    ddl-auto: create
+  properties:
+    hibernate:
+      show_sql: true
+      format_sql: true
+      use_sql_comments: true
+      default_batch_fetch_size: 100
+
+elasticsearch:
+  uris: ${ELASTICSEARCH_URL}
