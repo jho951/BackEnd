@@ -23,4 +23,10 @@ public class UserController {
 		UserResponse.UserCreateResponse response = userService.create(dto);
 		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
 	}
+
+	@PostMapping("/login")
+	public GlobalResponse<UserResponse.UserAuthResponse>login(UserRequest.UserAuthRequest dto) {
+		UserResponse.UserAuthResponse response = userService.auth(dto);
+		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
+	}
 }

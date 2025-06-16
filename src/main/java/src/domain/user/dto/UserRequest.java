@@ -87,4 +87,24 @@ public class UserRequest {
 		private String password;
 
 	}
+	@Getter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class UserAuthRequest {
+		@NotBlank(message = "email is required")
+		@Schema(description = "유저 이메일", example = "useremail@example.com")
+		private String email;
+
+		@NotBlank(message = "password is required")
+		@Schema(description = "유저 비밀번호", example = "test1234!")
+		private String password;
+
+		public UserAuth toAuthEntity(User user) {
+			return UserAuth.builder()
+				.user(user)
+				.password(this.password)
+				.build();
+		}
+	}
 }

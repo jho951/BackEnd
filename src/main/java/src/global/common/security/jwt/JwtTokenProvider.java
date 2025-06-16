@@ -1,42 +1,57 @@
 package src.global.common.security.jwt;
 
-
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
-import io.jsonwebtoken.Jwts;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
 import org.springframework.stereotype.Component;
-import src.global.common.security.user.CustomUserDetailsService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import src.global.config.JwtTokenConfig;
+import src.global.common.security.user.CustomUserDetailsService;
 
 /**
- *  JWT 발급 및 해석, 인증 객체 생성까지 전반적인 JWT 처리를 담당하는 핵심 유틸 클래스
+ * JWT 발급 및 해석, 인증 객체 생성까지 전반적인 JWT 처리를 담당하는 클래스
  */
-@Component // Spring Bean 등록
-@RequiredArgsConstructor // final 필드 자동 생성자 주입
+@Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
-	// 사용자 ID로 사용자 정보
 	private final CustomUserDetailsService customUserDetailsService;
-	// JWT 설정 클래스 (application-dev-auth.yml
 	private final JwtTokenConfig jwtTokenConfig;
 
+	// ✅ AccessToken용 키 생성
+	private Key getAccessTokenKey() {
+		return Keys.hmacShaKeyFor(
+			jwtTokenConfig.getAccessToken().getSecretKey().getBytes(StandardCharsets.UTF_8)
+		);
+	}
+
+	// ✅ JWT 생성
 	public String createToken(String userId) {
 		Date now = new Date();
-		Date expiry = new Date(now.getTime() + jwtTokenConfig.getExpirationMs());
+		Date expiry = new Date(now.getTime() + jwtTokenConfig.getAccessToken().getExpirationSeconds() * 1000L);
 
 		return Jwts.builder()
 			.setSubject(userId)
 			.setIssuedAt(now)
 			.setExpiration(expiry)
-			.signWith(SignatureAlgorithm.HS256, jwtTokenConfig.getSecretKey())
+			.signWith(getAccessTokenKey(), SignatureAlgorithm.HS256)
 			.compact();
 	}
 
-
+	// ✅ 요청 헤더에서 토큰 추출
 	public String resolveToken(HttpServletRequest request) {
 		String bearer = request.getHeader("Authorization");
 		if (bearer != null && bearer.startsWith("Bearer ")) {
@@ -45,19 +60,38 @@ public class JwtTokenProvider {
 		return null;
 	}
 
+	// ✅ 토큰 유효성 검사
 	public boolean validateToken(String token) {
-		// 토큰 유효성 검사 구현 (만료 여부, 시그니처 등)
-		return true;
+		try {
+			Jwts.parserBuilder()
+				.setSigningKey(getAccessTokenKey())
+				.build()
+				.parseClaimsJws(token);
+			return true;
+		} catch (ExpiredJwtException e) {
+			System.out.println("JWT 만료: " + e.getMessage());
+		} catch (JwtException e) {
+			System.out.println("JWT 유효하지 않음: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("JWT 파싱 오류: " + e.getMessage());
+		}
+		return false;
 	}
 
+	// ✅ 인증 객체 생성
 	public Authentication getAuthentication(String token) {
 		String userId = getUserIdFromToken(token);
 		var userDetails = customUserDetailsService.loadUserByUsername(userId);
 		return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 	}
 
+	// ✅ 토큰에서 사용자 ID 추출
 	private String getUserIdFromToken(String token) {
-		// 실제 claim에서 userId 꺼내기
-		return "userId-from-token";
+		return Jwts.parserBuilder()
+			.setSigningKey(getAccessTokenKey())
+			.build()
+			.parseClaimsJws(token)
+			.getBody()
+			.getSubject();
 	}
 }

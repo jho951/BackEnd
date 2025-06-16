@@ -2,8 +2,6 @@ package src.global.common.security.user;
 
 import lombok.RequiredArgsConstructor;
 
-import io.jsonwebtoken.Claims;
-
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +13,7 @@ import src.domain.user.repository.UserRepository;
 import src.global.common.security.jwt.AccessTokenService;
 
 /**
- * PackageName : src.global.common.security.user
- * FileName    : CustomUserDetailsService
- * Author      : jh
- * Date        : 25. 5. 27.
- * Description : 로그인 시 사용자 정보 로드를 위한 인터페이스
+ *
  */
 @Service
 @RequiredArgsConstructor

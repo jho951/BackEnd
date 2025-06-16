@@ -3,6 +3,10 @@ package src.domain.user.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +19,7 @@ import src.domain.user.entity.UserAuth;
 import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.entity.UserSocial;
+import src.global.common.security.jwt.JwtTokenProvider;
 import src.global.constant.code.ErrorCode;
 import src.global.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
@@ -29,6 +34,8 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final UserAuthRepository userAuthRepository;
 	private final UserSocialRepository userSocialRepository;
+	private final AuthenticationManager authenticationManager;
+	private final JwtTokenProvider jwtTokenProvider;
 
 	/**
 	 * @param dto 회원가입 유저 정보
@@ -48,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		userAuth.encodePassword(passwordEncoder);
 		return userAuthRepository.save(userAuth);
 	}
+
 	/**
 	 * @param dto,user 회원가입 유저 정보, user 엔티티
 	 * @return user_social 테이블에 유저 정보 저장
@@ -66,7 +74,9 @@ public class UserServiceImpl implements UserService {
 	public UserResponse.UserCreateResponse create(UserRequest.UserCreateRequest dto) {
 		try {
 			User user = saveUser(dto);
+
 			UserAuth userAuth = saveUserAuth(dto, user);
+
 			UserSocial userSocial = saveUserSocial(dto, user);
 
 			return UserResponse.UserCreateResponse.from(user,userAuth,userSocial);
@@ -76,6 +86,29 @@ public class UserServiceImpl implements UserService {
 			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
 		}
 	}
+
+	@Transactional
+	@Override
+	public UserResponse.UserAuthResponse auth(UserRequest.UserAuthRequest dto) {
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+			);
+
+			UserAuth userAuth = (UserAuth) authentication.getPrincipal();
+
+			String token = jwtTokenProvider.createToken(userAuth.getId().toString());
+
+			return UserResponse.UserAuthResponse.from(userAuth, token);
+		} catch (AuthenticationException e) {
+			throw new GlobalException(ErrorCode.NOT_FOUND_USER);
+		} catch (DataIntegrityViolationException e) {
+			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
+		} catch (PersistenceException e) {
+			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
+		}
+	}
+
 
 	// /**
 	//  * @param dto user 수정

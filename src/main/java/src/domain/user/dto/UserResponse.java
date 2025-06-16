@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.NotEmpty;
 
 import src.domain.user.entity.User;
 import src.domain.user.entity.UserAuth;
@@ -62,9 +61,9 @@ public class UserResponse {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class UserDeleteResponse  {
-		@NotEmpty(message = "id is required")
+		@NotNull(message = "id is required")
 		private UUID id;
-		@NotEmpty(message = "isDeleted is required")
+		@NotNull(message = "isDeleted is required")
 		private Boolean isDeleted;
 
 		public static UserResponse.UserDeleteResponse from(User user) {
@@ -74,4 +73,24 @@ public class UserResponse {
 				.build();
 		}
 	}
+
+	@Getter
+	@Builder
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class UserAuthResponse {
+		@NotNull(message = "id is required")
+		private UUID id;
+
+		@NotNull(message = "token is required")
+		private String token;
+
+		public static UserResponse.UserAuthResponse from(UserAuth userAuth, String token) {
+			return UserResponse.UserAuthResponse.builder()
+				.id(userAuth.getId())
+				.token(token)
+				.build();
+		}
+	}
+
 }
