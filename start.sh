@@ -15,16 +15,10 @@ ENV_FILE="$SCRIPT_DIR/.env.$ENV"
 COMMON_COMPOSE_FILES=(
   "$SCRIPT_DIR/docker/docker-compose.yml"
   "$SCRIPT_DIR/docker/services/mysql/$ENV/docker-compose.mysql.yml"
+  "$SCRIPT_DIR/docker/services/elasticsearch/$ENV/docker-compose.elasticsearch.yml"
   "$SCRIPT_DIR/docker/services/logstash/$ENV/docker-compose.logstash.yml"
   "$SCRIPT_DIR/docker/services/kibana/$ENV/docker-compose.kibana.yml"
 )
-
-# Elasticsearch 환경 분기
-if [ "$ENV" == "prod" ]; then
-  ES_COMPOSE="$SCRIPT_DIR/docker/services/elasticsearch/prod/docker-compose.elasticsearch.cluster.yml"
-else
-  ES_COMPOSE="$SCRIPT_DIR/docker/services/elasticsearch/dev/docker-compose.elasticsearch.yml"
-fi
 
 # 전체 docker-compose 파일 목록
 COMPOSE_FILES=("${COMMON_COMPOSE_FILES[@]}" "$ES_COMPOSE")

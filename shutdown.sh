@@ -5,17 +5,23 @@ set -e  # 에러 발생 시 즉시 종료
 # 현재 스크립트 위치 (절대 경로)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# .env.dev 경로 (start.sh와 같은 폴더에 있다고 가정)
-ENV_FILE="$SCRIPT_DIR/.env.dev"
+# 실행 환경 지정 (기본값: dev)
+ENV=${1:-dev}
 
-# docker-compose 파일 경로들 (절대 경로로 지정)
-COMPOSE_FILES=(
+# .env 경로 (e.g., .env.dev, .env.prod)
+ENV_FILE="$SCRIPT_DIR/.env.$ENV"
+
+# 공통 docker-compose 파일 경로
+COMMON_COMPOSE_FILES=(
   "$SCRIPT_DIR/docker/docker-compose.yml"
-  "$SCRIPT_DIR/docker/services/mysql/docker-compose.mysql.yml"
-  "$SCRIPT_DIR/docker/services/elasticsearch/docker-compose.elasticsearch.yml"
-  "$SCRIPT_DIR/docker/services/logstash/docker-compose.logstash.yml"
-  "$SCRIPT_DIR/docker/services/kibana/docker-compose.kibana.yml"
+  "$SCRIPT_DIR/docker/services/mysql/$ENV/docker-compose.mysql.yml"
+  "$SCRIPT_DIR/docker/services/elasticsearch/$ENV/docker-compose.elasticsearch.yml"
+  "$SCRIPT_DIR/docker/services/logstash/$ENV/docker-compose.logstash.yml"
+  "$SCRIPT_DIR/docker/services/kibana/$ENV/docker-compose.kibana.yml"
 )
+
+# 전체 docker-compose 파일 목록
+COMPOSE_FILES=("${COMMON_COMPOSE_FILES[@]}" "$ES_COMPOSE")
 
 # ✅ .env.dev 존재 여부 확인
 if [ ! -f "$ENV_FILE" ]; then
@@ -38,17 +44,14 @@ if [ ${#missing_files[@]} -gt 0 ]; then
 fi
 
 # ✅ 정보 출력
-echo "✅ Using ENV file: $ENV_FILE"
-echo "✅ Using Docker Compose files:"
+echo "🛑 Stopping and removing Docker Compose services..."
+echo "📄 Using ENV file: $ENV_FILE"
+echo "📄 Using Docker Compose files:"
 for f in "${COMPOSE_FILES[@]}"; do echo "  $f"; done
 
-# ✅ docker compose 실행 (절대 경로 기반)
+# ✅ docker compose 종료 및 정리
 docker compose --env-file "$ENV_FILE" \
-  -f "${COMPOSE_FILES[0]}" \
-  -f "${COMPOSE_FILES[1]}" \
-  -f "${COMPOSE_FILES[2]}" \
-  -f "${COMPOSE_FILES[3]}" \
-  -f "${COMPOSE_FILES[4]}" \
-  down
+  $(for f in "${COMPOSE_FILES[@]}"; do echo "-f $f"; done) \
+  down --remove-orphans -v
 
-echo "✅ Docker Compose Stopping and removing"
+echo "✅ Docker Compose services stopped and cleaned up."
