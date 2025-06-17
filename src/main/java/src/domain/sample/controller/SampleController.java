@@ -31,13 +31,14 @@ import src.global.constant.log.LogType;
 @RequestMapping("/v1/sample")
 @RequiredArgsConstructor
 @Tag(name = "Sample Controller", description = "This is an sample controller")
+@Loggable(level = LogLevel.INFO, type = LogType.API)
 public class SampleController {
     private final SampleService sampleService;
 
     @PostMapping("/create")
     @Operation(summary = "sample create api", description = "sample entity를 생성합니다.")
     @ApiResponse(responseCode = "200", description = "성공적으로 생성하였습니다.")
-    @Loggable(level = LogLevel.INFO, type = LogType.API)
+
     public GlobalResponse<SampleResponse.SampleCreateResponse> create(@RequestBody @Valid SampleRequest.SampleCreateRequest dto) {
         SampleResponse.SampleCreateResponse response = sampleService.create(dto);
         return GlobalResponse.ok(SuccessCode.SUCCESS, response);
