@@ -1,43 +1,46 @@
 package src.domain.user.entity;
 
+import java.util.UUID;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
 import lombok.experimental.SuperBuilder;
-import src.domain.user.constant.UserSocial;
-import src.global.common.entity.BaseAuthEntity;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import src.global.common.entity.BaseAuditableEntity;
 
 @Entity
 @Getter
 @SuperBuilder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_auth")
-public class UserAuth extends BaseAuthEntity {
+public class UserAuth extends BaseAuditableEntity {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+	private UUID id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "socialType", nullable = false)
-	private UserSocial socialType;
+	@Column(name = "password")
+	private String password;
 
-	// @Column(name = "provider_id", nullable = false, unique = true)
-	// private String providerId;
-
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+
+	public void encodePassword(PasswordEncoder encoder) {
+		this.password = encoder.encode(this.password);
+	}
 }
