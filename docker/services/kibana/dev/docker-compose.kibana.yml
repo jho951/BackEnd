@@ -1,14 +1,12 @@
 services:
   kibana:
     ports:
-      - "${KIBANA_PORT}:${KIBANA_PORT}"
+      - "5601:5601"
     volumes:
       - type: bind
         source: services/kibana/dev/kibana.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
     depends_on:
-      master-node-1:
-        condition: service_healthy
-      data-node-1:
+      elasticsearch:
         condition: service_healthy
