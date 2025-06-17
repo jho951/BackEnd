@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum LogType {
 	API("api"),
-	SYSTEM("syetem"),
+	SYSTEM("system"),
 	DEFAULT("default");
 
 	private final String type;

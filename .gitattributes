@@ -5,6 +5,3 @@
 
 # .jpg 파일은 바이너리로 처리
 *.jpg binary
-
-# 이 파일은 Git 추적에서 제외
-!/.gitattributes

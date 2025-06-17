@@ -1,0 +1,17 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: elasticsearch
+    platform: linux/amd64
+    volumes:
+      - type: bind
+        source: services/elasticsearch/dev/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: bind
+        source: services/elasticsearch/dev/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    ports:
+      - "9200:9200"
+    networks:
+      - external
