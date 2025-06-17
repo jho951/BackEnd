@@ -1,5 +1,6 @@
 services:
   logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.0
     ports:
       - "${LOGSTASH_PORT}:${LOGSTASH_PORT}/tcp"
     volumes:

@@ -12,4 +12,4 @@ spring:
     group:
       dev: [ "dev_auth", "dev_data", "dev_db", "dev_docs", "dev_server"]
       prod: [ "prod_auth", "prod_data", "prod_db", "prod_docs", "prod_server"]
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE}

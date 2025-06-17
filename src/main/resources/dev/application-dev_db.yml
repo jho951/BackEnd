@@ -4,11 +4,13 @@ datasource:
   username: ${MYSQL_USER}
   password: ${MYSQL_PASSWORD}
   hikari:
-    maximum-pool-size: 5
     minimum-idle: 1
+    maximum-pool-size: 3
+    connection-timeout: 20000
+    initialization-fail-timeout: 60000
 
 jpa:
-  open-in-view: false
+  open-in-view: true
   hibernate:
     ddl-auto: create
   properties:

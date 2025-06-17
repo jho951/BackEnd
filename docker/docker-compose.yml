@@ -1,4 +1,22 @@
 services:
+  mysql:
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
+
+  redis:
+    restart: unless-stopped
+    networks:
+      - external
+
+  logstash:
+    container_name: logstash
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
+
   kibana:
     env_file:
       - ${ENV_FILE_PATH}
@@ -7,23 +25,8 @@ services:
     networks:
       - external
 
-  logstash:
-    env_file:
-      - ${ENV_FILE_PATH}
-    image: docker.elastic.co/logstash/logstash:8.12.0
-    container_name: logstash
-    networks:
-      - external
-
-  mysql:
-    env_file:
-      - ${ENV_FILE_PATH}
-    image: mysql:8.0
-    container_name: mysql
-    networks:
-      - external
-
 volumes:
+  redis-data:
   mysql-volume:
 
 networks:
