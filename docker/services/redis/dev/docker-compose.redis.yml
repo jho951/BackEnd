@@ -1,0 +1,11 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:7.2
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

@@ -1,7 +1,9 @@
 services:
   logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:8.12.0
     ports:
-      - "${LOGSTASH_PORT}:${LOGSTASH_PORT}/tcp"
+      - "5000:5000/tcp"
     volumes:
       - type: bind
         source: services/logstash/dev/logstash.conf

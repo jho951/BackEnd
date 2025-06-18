@@ -1,5 +1,6 @@
 services:
   logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.0
     ports:
       - "${LOGSTASH_PORT}:${LOGSTASH_PORT}/tcp"
     volumes:
@@ -16,7 +17,5 @@ services:
         target: /sys/fs/cgroup
         read_only: true
     depends_on:
-      master-node-1:
-        condition: service_healthy
       data-node-1:
         condition: service_healthy
