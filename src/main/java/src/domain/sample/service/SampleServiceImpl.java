@@ -18,7 +18,7 @@ import src.domain.sample.dto.SampleRequest;
 import src.domain.sample.dto.SampleResponse;
 import src.domain.sample.repository.SampleRepository;
 
-import src.global.constant.code.ErrorCode;
+import src.global.response.constant.ErrorCode;
 import src.global.exception.GlobalException;
 
 @Service

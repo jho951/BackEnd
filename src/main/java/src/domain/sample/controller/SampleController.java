@@ -19,16 +19,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import src.domain.sample.dto.SampleRequest;
-import src.global.constant.code.SuccessCode;
 import src.domain.sample.dto.SampleResponse;
-import src.global.common.dto.GlobalResponse;
+import src.global.response.dto.GlobalResponse;
+import src.global.swagger.constant.SwaggerTag;
 import src.domain.sample.service.SampleService;
+import src.global.response.constant.SuccessCode;
 
 @RestController
 @RequestMapping("api/v1/sample")
 @RequiredArgsConstructor
-@Tag(name = "Sample Controller", description = "This is an sample controller")
-@Loggable(level = LogLevel.INFO, type = LogType.API)
+@Tag(name = SwaggerTag.SAMPLE, description = "This is a sample controller")
 public class SampleController {
     private final SampleService sampleService;
 

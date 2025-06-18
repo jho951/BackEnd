@@ -19,7 +19,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import src.domain.user.constant.UserSocialType;
-import src.global.common.entity.BaseAuditableEntity;
+import src.global.entity.BaseAuditableEntity;
 
 @Entity
 @Getter

@@ -19,12 +19,12 @@ import src.domain.user.entity.UserAuth;
 import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.entity.UserSocial;
-import src.global.constant.code.ErrorCode;
+import src.global.response.constant.ErrorCode;
 import src.global.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
 import src.domain.user.repository.UserAuthRepository;
 import src.domain.user.repository.UserSocialRepository;
-import src.global.common.security.auth.utils.JwtTokenProvider;
+import src.global.security.token.JwtTokenProvider;
 
 @Service
 @Slf4j

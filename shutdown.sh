@@ -18,6 +18,7 @@ COMMON_COMPOSE_FILES=(
   "$SCRIPT_DIR/docker/services/elasticsearch/$ENV/docker-compose.elasticsearch.yml"
   "$SCRIPT_DIR/docker/services/logstash/$ENV/docker-compose.logstash.yml"
   "$SCRIPT_DIR/docker/services/kibana/$ENV/docker-compose.kibana.yml"
+  "$SCRIPT_DIR/docker/services/redis/$ENV/docker-compose.redis.yml"
 )
 
 # 전체 docker-compose 파일 목록

@@ -24,7 +24,7 @@ import jakarta.persistence.GenerationType;
 
 import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserStatus;
-import src.global.common.entity.BaseEntity;
+import src.global.entity.BaseEntity;
 
 @Entity
 @Getter
