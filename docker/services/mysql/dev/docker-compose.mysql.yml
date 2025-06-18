@@ -1,0 +1,24 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: volume
+        source: mysql-volume
+        target: /var/lib/mysql
+      - type: bind
+        source: services/mysql/dev/my.cnf
+        target: /etc/mysql/my.cnf
+      - type: bind
+        source: services/mysql/dev/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "mysqladmin ping -h \"$${MYSQL_HOST}\" -u \"$${MYSQL_USER}\" -p\"$${MYSQL_PASSWORD}\""
+      ]
+      interval: 5s
+      timeout: 5s
+      retries: 5

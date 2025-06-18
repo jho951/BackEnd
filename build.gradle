@@ -24,48 +24,29 @@ repositories {
 }
 
 dependencies {
-	// Lombok: 반복적인 getter, setter, toString 등의 코드를 자동 생성해주는 라이브러리 (컴파일 시에만 필요)
 	compileOnly 'org.projectlombok:lombok'
-	// Lombok: annotationProcessor로 Lombok 어노테이션을 처리하여 코드를 생성
 	annotationProcessor 'org.projectlombok:lombok'
-	// Spring Boot DevTools: 개발 환경에서 애플리케이션의 자동 재시작, 라이브 리로드 등을 지원 (개발 시에만 필요)
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	// MySQL Connector/J: MySQL 데이터베이스와 Java 애플리케이션을 연결하기 위한 JDBC 드라이버
+	implementation 'io.lettuce:lettuce-core'
 	implementation 'com.mysql:mysql-connector-j'
-	// Spring Boot Starter Web: Spring MVC, Tomcat, Jackson 등 웹 개발에 필요한 기본적인 의존성 번들
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// Spring Boot Starter JDBC: JDBC (Java Database Connectivity) API를 사용하여 데이터베이스에 접근하기 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	// Spring Boot Starter Logging: Spring Boot의 기본 로깅 구현체인 Logback을 사용하기 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-logging'
-	// Spring Security Starter: Spring 기반 애플리케이션의 보안 기능을 구현하기 위한 핵심 의존성 번들
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	// Spring Boot Starter Data JPA: JPA (Java Persistence API)를 사용하여 데이터베이스를 객체 관계 매핑 방식으로 관리하기 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	// Spring Boot Starter Validation: Bean Validation API를 사용하여 데이터 유효성 검증 기능을 구현하기 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	// Spring Boot Starter Data Elasticsearch: Elasticsearch 데이터베이스와 Spring Data를 통해 상호작용하기 위한 의존성
-	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-	// SpringDoc OpenAPI Starter WebMVC UI: OpenAPI 3.0 스펙을 기반으로 API 문서를 자동으로 생성하고 Swagger UI를 제공
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
-	// Logstash Logback Encoder: Logback 로깅 이벤트를 Logstash가 이해할 수 있는 JSON 형식으로 인코딩
 	implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
-	// Logback Access Spring Boot Starter: 웹 요청/응답 정보를 Logback을 통해 로깅 (액세스 로그)
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'dev.akkinoc.spring.boot:logback-access-spring-boot-starter:4.0.0'
-	// API만 포함 (컴파일 시 사용)
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
-	// 구현체 (런타임 시 필요)
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	// Jackson JSON 직렬화/역직렬화 지원
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	// JUnit Jupiter: Java 플랫폼을 위한 최신 테스트 프레임워크 (JUnit 5)
 	testImplementation 'org.junit.jupiter:junit-jupiter'
-	// Spring Boot Starter Test: Spring 기반 애플리케이션을 테스트하기 위한 다양한 유틸리티와 의존성 번들 (JUnit, Spring TestContext Framework 등 포함)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// Spring Security Test: Spring Security 기능을 테스트하기 위한 유틸리티 제공
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 tasks.named('test') {

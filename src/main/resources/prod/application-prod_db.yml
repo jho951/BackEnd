@@ -1,16 +1,24 @@
-spring:
-  datasource:
-    url: jdbc:mysql://prod-db-host/db
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: user
-    password: 1234
-    hikari:
-      initialization-fail-timeout: 60000
-      connection-timeout: 20000
+datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  url: ${MYSQL_URL}
+  username: ${MYSQL_USER}
+  password: ${MYSQL_PASSWORD}
+  hikari:
+    minimum-idle: 1
+    maximum-pool-size: 30
+    connection-timeout: 20000
+    initialization-fail-timeout: 60000
 
-  jpa:
+jpa:
+  open-in-view: false
+  hibernate:
+    ddl-auto: none
+  properties:
     hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+      show_sql: false
+      format_sql: false
+      use_sql_comments: false
+      default_batch_fetch_size: 100
+
+elasticsearch:
+  uris: ${ELASTICSEARCH_URL}

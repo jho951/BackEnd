@@ -1,13 +1,42 @@
 services:
+
   mysql:
-    image: mysql:8.0
-    container_name: mysql
+    env_file:
+      - ${ENV_FILE_PATH}
     networks:
-      - common-net
+      - external
+
+  redis:
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
+
+  elasticsearch:
+    platform: linux/amd64
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
+
+  logstash:
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
+
+  kibana:
+    env_file:
+      - ${ENV_FILE_PATH}
+    networks:
+      - external
 
 volumes:
-  mysql-data:
+  es-data:
+  redis-data:
+  mysql-volume:
+  logstash-pipeline:
 
 networks:
-  common-net:
+  external:
     driver: bridge
