@@ -24,7 +24,8 @@ import jakarta.persistence.GenerationType;
 
 import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserStatus;
-import src.global.entity.BaseEntity;
+import src.global.base.entity.BaseEntity;
+import src.global.security.auth.entity.Auth;
 
 @Entity
 @Getter
@@ -54,7 +55,7 @@ public class User extends BaseEntity {
 	private UserStatus status;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private UserAuth userAuth;
+	private Auth auth;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Builder.Default

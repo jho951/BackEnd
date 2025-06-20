@@ -1,4 +1,4 @@
-package src.global.entity;
+package src.global.base.entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class BaseAuditableEntity extends BaseEntity {
+public abstract class BaseAuditableEntity extends BaseEntity {
 	@CreatedBy
 	@Column(updatable = false, name = "created_by",nullable = false)
 	private String createdBy;

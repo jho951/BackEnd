@@ -4,23 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.Authentication;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import jakarta.persistence.PersistenceException;
 
 import src.domain.user.entity.User;
-import src.domain.user.entity.UserAuth;
+import src.global.security.auth.entity.Auth;
 import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.entity.UserSocial;
-import src.global.response.constant.ErrorCode;
-import src.global.exception.GlobalException;
+import src.global.base.constant.ErrorCode;
+import src.global.base.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
 import src.domain.user.repository.UserAuthRepository;
 import src.domain.user.repository.UserSocialRepository;
@@ -50,10 +47,10 @@ public class UserServiceImpl implements UserService {
 	 * @param dto,user 회원가입 유저 정보, user 엔티티
 	 * @return user_auth 테이블에 유저 정보 저장
 	 */
-	private UserAuth saveUserAuth(UserRequest.UserCreateRequest dto, User user) {
-		UserAuth userAuth = dto.toAuthEntity(user);
-		userAuth.encodePassword(passwordEncoder);
-		return userAuthRepository.save(userAuth);
+	private Auth saveUserAuth(UserRequest.UserCreateRequest dto, User user) {
+		Auth auth = dto.toAuthEntity(user);
+		auth.encodePassword(passwordEncoder);
+		return userAuthRepository.save(auth);
 	}
 
 	/**
@@ -75,33 +72,11 @@ public class UserServiceImpl implements UserService {
 		try {
 			User user = saveUser(dto);
 
-			UserAuth userAuth = saveUserAuth(dto, user);
+			Auth auth = saveUserAuth(dto, user);
 
 			UserSocial userSocial = saveUserSocial(dto, user);
 
-			return UserResponse.UserCreateResponse.from(user,userAuth,userSocial);
-		} catch (DataIntegrityViolationException e) {
-			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
-		} catch (PersistenceException e) {
-			throw new GlobalException(ErrorCode.INVALID_REQUEST_DATA);
-		}
-	}
-
-	@Transactional
-	@Override
-	public UserResponse.UserAuthResponse auth(UserRequest.UserAuthRequest dto) {
-		try {
-			Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
-			);
-
-			UserAuth userAuth = (UserAuth) authentication.getPrincipal();
-
-			String token = jwtTokenProvider.createToken(userAuth.getId().toString());
-
-			return UserResponse.UserAuthResponse.from(userAuth, token);
-		} catch (AuthenticationException e) {
-			throw new GlobalException(ErrorCode.NOT_FOUND_USER);
+			return UserResponse.UserCreateResponse.from(user, auth,userSocial);
 		} catch (DataIntegrityViolationException e) {
 			throw new GlobalException(ErrorCode.BAD_REQUEST_SAMPLE_DATA);
 		} catch (PersistenceException e) {

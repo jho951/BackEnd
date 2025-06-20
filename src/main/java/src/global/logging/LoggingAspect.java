@@ -19,22 +19,7 @@ import src.global.logging.constant.LogLevel;
 @Component
 @RequiredArgsConstructor
 public class LoggingAspect {
-	private final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
-
-	/**
-	 * @param level 로그 레벨
-	 * @param message 로깅에 적힐 메시지
-	 */
-	private void logByLevel(LogLevel level, String message) {
-		// 로그 레벨에 따라 Lombok 기반 Logger를 통해 메시지 출력
-		switch (level) {
-			case TRACE -> log.trace(message);
-			case DEBUG -> log.debug(message);
-			case INFO -> log.info(message);
-			case WARN -> log.warn(message);
-			case ERROR -> log.error(message);
-		}
-	}
+	private final Logger log = LoggerFactory.getLogger(LoggingAspect.class);E
 
 	/**
 	 * @param joinPoint 대상 메서드의 메타정보와 인자에 접근

@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import src.domain.user.entity.User;
-import src.global.response.constant.ErrorCode;
-import src.global.exception.GlobalException;
+import src.global.base.constant.ErrorCode;
+import src.global.base.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
-import src.global.security.jwt.AccessTokenService;
+import src.global.security.jwt.service.AccessTokenServiceImpl;
 
 /**
  *
@@ -19,7 +19,7 @@ import src.global.security.jwt.AccessTokenService;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 	private final UserRepository userRepository;
-	private final AccessTokenService accessTokenService;
+	private final AccessTokenServiceImpl accessTokenServiceImpl;
 
 	/**
 	 * 일반 로그인

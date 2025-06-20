@@ -20,10 +20,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import src.domain.sample.dto.SampleRequest;
 import src.domain.sample.dto.SampleResponse;
-import src.global.response.dto.GlobalResponse;
+import src.global.base.dto.GlobalResponse;
 import src.global.swagger.constant.SwaggerTag;
 import src.domain.sample.service.SampleService;
-import src.global.response.constant.SuccessCode;
+import src.global.base.constant.SuccessCode;
 
 @RestController
 @RequestMapping("api/v1/sample")

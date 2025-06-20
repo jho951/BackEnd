@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import src.domain.user.entity.User;
-import src.domain.user.entity.UserAuth;
+import src.global.security.auth.entity.Auth;
 
 /**
  * PackageName : src.global.common.security.user
@@ -26,7 +26,7 @@ import src.domain.user.entity.UserAuth;
 @RequiredArgsConstructor
 public class CustomUser implements UserDetails {
 	private final User user;
-	private final UserAuth userAuth;
+	private final Auth auth;
 
 	public UUID getId() {
 		return user.getId();
@@ -38,7 +38,7 @@ public class CustomUser implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return userAuth.getPassword();
+		return auth.getPassword();
 	}
 
 	@Override

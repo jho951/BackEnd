@@ -1,7 +1,7 @@
-package src.global.exception;
+package src.global.base.exception;
 
 import lombok.Getter;
-import src.global.response.constant.ErrorCode;
+import src.global.base.constant.ErrorCode;
 
 @Getter
 public class GlobalException extends RuntimeException {

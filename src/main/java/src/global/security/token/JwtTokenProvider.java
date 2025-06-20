@@ -38,46 +38,6 @@ public class JwtTokenProvider {
 		);
 	}
 
-	// ✅ JWT 생성
-	public String createToken(String userId) {
-		Date now = new Date();
-		Date expiry = new Date(now.getTime() + jwtTokenConfig.getAccessToken().getExpirationSeconds() * 1000L);
-
-		return Jwts.builder()
-			.setSubject(userId)
-			.setIssuedAt(now)
-			.setExpiration(expiry)
-			.signWith(getAccessTokenKey(), SignatureAlgorithm.HS256)
-			.compact();
-	}
-
-	// ✅ 요청 헤더에서 토큰 추출
-	public String resolveToken(HttpServletRequest request) {
-		String bearer = request.getHeader("Authorization");
-		if (bearer != null && bearer.startsWith("Bearer ")) {
-			return bearer.substring(7);
-		}
-		return null;
-	}
-
-	// ✅ 토큰 유효성 검사
-	public boolean validateToken(String token) {
-		try {
-			Jwts.parserBuilder()
-				.setSigningKey(getAccessTokenKey())
-				.build()
-				.parseClaimsJws(token);
-			return true;
-		} catch (ExpiredJwtException e) {
-			System.out.println("JWT 만료: " + e.getMessage());
-		} catch (JwtException e) {
-			System.out.println("JWT 유효하지 않음: " + e.getMessage());
-		} catch (Exception e) {
-			System.out.println("JWT 파싱 오류: " + e.getMessage());
-		}
-		return false;
-	}
-
 	// ✅ 인증 객체 생성
 	public Authentication getAuthentication(String token) {
 		String userId = getUserIdFromToken(token);

@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import src.domain.user.entity.User;
-import src.domain.user.entity.UserAuth;
+import src.global.security.auth.entity.Auth;
 import src.domain.user.entity.UserSocial;
 import src.domain.user.constant.UserRole;
 import src.domain.user.constant.UserStatus;
@@ -51,8 +51,8 @@ public class UserRequest {
 				.build();
 		}
 
-		public UserAuth toAuthEntity(User user) {
-			return UserAuth.builder()
+		public Auth toAuthEntity(User user) {
+			return Auth.builder()
 				.user(user)
 				.password(this.password)
 				.build();
@@ -86,25 +86,5 @@ public class UserRequest {
 		@Schema(description = "유저 비밀번호", example = "test1234!")
 		private String password;
 
-	}
-	@Getter
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class UserAuthRequest {
-		@NotBlank(message = "email is required")
-		@Schema(description = "유저 이메일", example = "useremail@example.com")
-		private String email;
-
-		@NotBlank(message = "password is required")
-		@Schema(description = "유저 비밀번호", example = "test1234!")
-		private String password;
-
-		public UserAuth toAuthEntity(User user) {
-			return UserAuth.builder()
-				.user(user)
-				.password(this.password)
-				.build();
-		}
 	}
 }

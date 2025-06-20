@@ -1,4 +1,4 @@
-package src.global.response.dto;
+package src.global.base.dto;
 
 import lombok.Getter;
 
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import src.global.response.constant.ErrorCode;
-import src.global.response.constant.SuccessCode;
+import src.global.base.constant.ErrorCode;
+import src.global.base.constant.SuccessCode;
 
 @Getter
 @Schema(description = "공통 응답 구조")

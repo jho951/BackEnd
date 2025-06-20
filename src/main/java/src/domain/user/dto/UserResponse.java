@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 
 import src.domain.user.entity.User;
-import src.domain.user.entity.UserAuth;
+import src.global.security.auth.entity.Auth;
 import src.domain.user.entity.UserSocial;
 import src.domain.user.constant.UserSocialType;
 
@@ -27,10 +27,10 @@ public class UserResponse {
 		@NotNull(message = "social_type is required")
 		private UserSocialType userSocialType;
 
-		public static UserResponse.UserCreateResponse from(User user,UserAuth userAuth,UserSocial userSocial) {
+		public static UserResponse.UserCreateResponse from(User user, Auth auth,UserSocial userSocial) {
 			return UserResponse.UserCreateResponse.builder()
 				.id(user.getId())
-				.id(userAuth.getId())
+				.id(auth.getId())
 				.userSocialType(userSocial.getSocialType())
 				.build();
 		}
@@ -47,10 +47,10 @@ public class UserResponse {
 		@NotNull(message = "social_type is required")
 		private UserSocialType userSocialType;
 
-		public static UserResponse.UserUpdateResponse from(User user,UserAuth userAuth,UserSocial userSocial) {
+		public static UserResponse.UserUpdateResponse from(User user, Auth auth,UserSocial userSocial) {
 			return UserResponse.UserUpdateResponse.builder()
 				.id(user.getId())
-				.id(userAuth.getId())
+				.id(auth.getId())
 				.userSocialType(userSocial.getSocialType())
 				.build();
 		}
@@ -85,9 +85,9 @@ public class UserResponse {
 		@NotNull(message = "token is required")
 		private String token;
 
-		public static UserResponse.UserAuthResponse from(UserAuth userAuth, String token) {
+		public static UserResponse.UserAuthResponse from(Auth auth, String token) {
 			return UserResponse.UserAuthResponse.builder()
-				.id(userAuth.getId())
+				.id(auth.getId())
 				.token(token)
 				.build();
 		}

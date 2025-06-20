@@ -1,4 +1,4 @@
-package src.global.response.constant;
+package src.global.base.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

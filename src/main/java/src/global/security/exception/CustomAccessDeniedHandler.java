@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import src.global.response.constant.ErrorCode;
-import src.global.response.dto.GlobalResponse;
+import src.global.base.constant.ErrorCode;
+import src.global.base.dto.GlobalResponse;
 
 /**
  * {@code CustomAccessDeniedHandler}는 사용자가 인증되었지만,

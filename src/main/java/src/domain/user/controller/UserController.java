@@ -12,8 +12,8 @@ import src.domain.user.dto.UserRequest;
 import src.domain.user.dto.UserResponse;
 import src.domain.user.service.UserService;
 import src.global.swagger.constant.SwaggerTag;
-import src.global.response.dto.GlobalResponse;
-import src.global.response.constant.SuccessCode;
+import src.global.base.dto.GlobalResponse;
+import src.global.base.constant.SuccessCode;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -25,12 +25,6 @@ public class UserController {
 	@PostMapping("/signup")
 	public GlobalResponse<UserResponse.UserCreateResponse> cancel(UserRequest.UserCreateRequest dto) {
 		UserResponse.UserCreateResponse response = userService.create(dto);
-		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
-	}
-
-	@PostMapping("/login")
-	public GlobalResponse<UserResponse.UserAuthResponse>login(UserRequest.UserAuthRequest dto) {
-		UserResponse.UserAuthResponse response = userService.auth(dto);
 		return GlobalResponse.ok(SuccessCode.SUCCESS, response);
 	}
 }

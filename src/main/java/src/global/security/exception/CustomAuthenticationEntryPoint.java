@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import src.global.response.constant.ErrorCode;
-import src.global.response.dto.GlobalResponse;
+import src.global.base.constant.ErrorCode;
+import src.global.base.dto.GlobalResponse;
 
 /**
  * {@code CustomAuthenticationDeniedHandler}는 사용자가 인증되지 않은 상태에서 보호된 리소스에 접근할 경우,

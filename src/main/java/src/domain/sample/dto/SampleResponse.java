@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotEmpty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import src.domain.sample.entity.Sample;
-import src.global.response.dto.BaseResponse;
+import src.global.base.dto.BaseResponse;
 
 import java.util.List;
 import java.util.Collections;

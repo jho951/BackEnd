@@ -1,13 +1,14 @@
-package src.global.response.dto;
+package src.global.base.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import org.springframework.data.annotation.LastModifiedDate;
-
 import jakarta.persistence.Version;
 import jakarta.persistence.MappedSuperclass;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +16,13 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor
-public abstract class BaseRequest {
+public abstract class BaseResponse {
 
 	@Version
 	private Long version;
+
+	@CreatedDate
+	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;

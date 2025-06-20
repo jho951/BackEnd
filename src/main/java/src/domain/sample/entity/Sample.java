@@ -12,7 +12,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import src.global.entity.BaseEntity;
+import src.global.base.entity.BaseEntity;
 
 @Entity
 @Getter

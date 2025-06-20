@@ -1,4 +1,4 @@
-package src.global.security.jwt;
+package src.global.security.jwt.service;
 
 import java.util.Date;
 import java.time.Duration;
@@ -16,13 +16,14 @@ import io.jsonwebtoken.security.Keys;
 
 import org.springframework.stereotype.Service;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import src.global.security.config.JwtTokenConfig;
 import src.global.security.config.JwtTokenConfig.TokenProperties;
 
 @Service
 @RequiredArgsConstructor
-public class RefreshTokenService {
+public class RefreshTokenServiceImpl implements RefreshTokenService {
 	// JWT를 생성 시 서명 키 ( HMAC 방식 )
 	private SecretKey secretKey;
 	// 만료 시간(ms 단위)을 저장
@@ -34,6 +35,9 @@ public class RefreshTokenService {
 
 	private static final String REFRESH_PREFIX = "refresh_token:";
 
+	/**
+	 * 	설정 파일(application.yml 등)에서 secret key, 만료시간을 읽어와 내부에 저장
+	 */
 	@PostConstruct
 	public void init() {
 		TokenProperties refreshProps = jwtTokenConfig.getRefreshToken();
@@ -42,6 +46,8 @@ public class RefreshTokenService {
 	}
 
 	// ✅ Refresh Token 생성 및 Redis 저장
+	@Transactional
+	@Override
 	public String createAndSaveRefreshToken(String userId) {
 		Date now = new Date();
 		Date expiry = new Date(now.getTime() + expirationMillis);
@@ -63,6 +69,8 @@ public class RefreshTokenService {
 		return token;
 	}
 
+	@Transactional
+	@Override
 	// ✅ 토큰 유효성 검증
 	public boolean validateRefreshToken(String token) {
 		try {
@@ -80,6 +88,8 @@ public class RefreshTokenService {
 		}
 	}
 
+	@Transactional
+	@Override
 	// ✅ 토큰 제거
 	public void deleteRefreshToken(String userId) {
 		redisTemplate.delete(REFRESH_PREFIX + userId);
