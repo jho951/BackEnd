@@ -18,14 +18,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import src.global.common.log.Loggable;
-import src.global.constant.log.LogLevel;
+import src.global.aop.logging.annotation.Loggable;
+import src.global.aop.logging.constant.LogLevel;
 import src.domain.sample.dto.SampleRequest;
 import src.global.constant.code.SuccessCode;
 import src.domain.sample.dto.SampleResponse;
 import src.domain.sample.service.SampleService;
 import src.global.common.response.GlobalResponse;
-import src.global.constant.log.LogType;
+import src.global.aop.logging.constant.LogType;
 
 @RestController
 @RequestMapping("/v1/sample")

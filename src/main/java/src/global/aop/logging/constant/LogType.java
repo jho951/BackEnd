@@ -1,4 +1,4 @@
-package src.global.constant.log;
+package src.global.aop.logging.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
