@@ -10,6 +10,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * application-deb_auth.yml로 부터 주입받습니다.
+ */
 @Configuration
 @Getter
 @Setter
@@ -27,6 +30,9 @@ public class JwtTokenConfig {
 		private String secretKey;
 		@Min(1)
 		private long expirationSeconds;
+		@NotBlank
+		private String issuer;
+		@NotBlank
+		private String audience;
 	}
-
 }

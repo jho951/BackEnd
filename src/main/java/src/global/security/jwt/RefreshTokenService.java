@@ -23,11 +23,11 @@ import src.global.security.config.JwtTokenConfig.TokenProperties;
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
-
+	// JWT를 생성 시 서명 키 ( HMAC 방식 )
 	private SecretKey secretKey;
-
+	// 만료 시간(ms 단위)을 저장
 	private long expirationMillis;
-
+	//  JWT 구성 정보
 	private final JwtTokenConfig jwtTokenConfig;
 
 	private final RedisTemplate<String, Object> redisTemplate;

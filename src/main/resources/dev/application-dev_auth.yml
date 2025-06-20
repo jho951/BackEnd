@@ -1,7 +1,18 @@
 jwt:
+  tokenPrefix: ${JWT_TOKEN_PREFIX}
+  header: ${JWT_HEADER}
   accessToken:
-    secret: ${JWT_ACCESS_TOKEN_SECRET}
+    secret-key: ${JWT_ACCESS_TOKEN_SECRET}
     expirationSeconds: ${JWT_ACCESS_EXPIRATION:1200}
+    issuer: ${JWT_ISSUER}
+    audience: ${JWT_AUDIENCE}
+    algorithm: ${JWT_ALGORITHM}
+    cookie:
+      name: ${JWT_COOKIE_NAME}
+      enabled: true
+
   refreshToken:
-    secret: ${JWT_REFRESH_TOKEN_SECRET}
+    secret-key: ${JWT_REFRESH_TOKEN_SECRET}
     expirationSeconds: ${JWT_REFRESH_EXPIRATION:30000}
+    issuer: ${JWT_ISSUER}
+    audience: ${JWT_AUDIENCE}
