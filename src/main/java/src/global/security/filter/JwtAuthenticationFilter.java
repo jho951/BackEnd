@@ -15,16 +15,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import src.global.security.jwt.service.AccessTokenService;
 import src.global.security.token.JwtTokenProvider;
 
 /**
  * OncePerRequestFilter // 요청마다 단 한 번만 실행되는 필터.
  */
-@Component // Spring Bean 등록
-@RequiredArgsConstructor // final 필드인 jwtTokenProvider를 자동으로 생성자 주입
+@Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-	private final JwtTokenProvider jwtTokenProvider;
+	private final AccessTokenService accessTokenService;
+
 
 	@Override
 	protected void doFilterInternal(@NotNull HttpServletRequest request,
@@ -33,9 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		throws ServletException, IOException {
 
 		// 토큰 추출
-		String token = jwtTokenProvider.resolveToken(request);
+		String token = accessTokenService.resolveToken(request);
 		// 토큰 유효성 검사
-		if (token != null && jwtTokenProvider.validateToken(token)) {
+		if (token != null && accessTokenService.validateToken(token)) {
 			// 인증 객체 생성
 			Authentication auth = jwtTokenProvider.getAuthentication(token);
 			// SecurityContext에 등록

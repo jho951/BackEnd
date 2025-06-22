@@ -22,7 +22,6 @@ import src.global.security.jwt.service.AccessTokenService;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-	private final AccessTokenService accessTokenService;
 	private final AuthenticationManager authenticationManager;
 
 	@Transactional

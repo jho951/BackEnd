@@ -26,6 +26,11 @@ public enum ErrorCode {
 	VALIDATION_ERROR(HttpStatus.BAD_REQUEST, Boolean.FALSE, 9016, "요청 필드 유효성 검사에 실패했습니다."),
 	METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, Boolean.FALSE,9017, "허용되지 않은 HTTP 메서드입니다."),
 
+	// 오류 종류 : 인증 에러(3000~3999)
+	INVALID_TOKEN_TYPE(HttpStatus.BAD_REQUEST, Boolean.FALSE, 3000, "토큰 타입이 잘못되었습니다."),
+	INVALID_USER_ID(HttpStatus.BAD_REQUEST, Boolean.FALSE, 3001, "유저 아이디가 잘못되었습니다."),
+	INVALID_JWT_ALGORITHM(HttpStatus.BAD_REQUEST, Boolean.FALSE, 3002, "JJWT 지원하는 알고리즘이 잘못되었습니다."),
+
 	//오류 종류 : 공통 에러 (9000 ~ 9999)
 	VALIDATION_FAIL_ERROR(HttpStatus.BAD_REQUEST, Boolean.FALSE, 9000, "(exception error 메세지에 따름)"),
 	NOT_SUPPORTED_METHOD(HttpStatus.METHOD_NOT_ALLOWED, Boolean.FALSE, 9001, "(exception error 메세지에 따름"),

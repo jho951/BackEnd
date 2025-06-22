@@ -87,7 +87,7 @@ public class SampleController {
         return GlobalResponse.ok(SuccessCode.SUCCESS, response);
     }
     /**
-     * sample 상세
+     * sample 삭제
      *
      * @param dto deleteRequestDto
      * @return SuccessCode, response

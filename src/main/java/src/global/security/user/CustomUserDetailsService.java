@@ -10,7 +10,6 @@ import src.domain.user.entity.User;
 import src.global.base.constant.ErrorCode;
 import src.global.base.exception.GlobalException;
 import src.domain.user.repository.UserRepository;
-import src.global.security.jwt.service.AccessTokenServiceImpl;
 
 /**
  *
@@ -19,7 +18,6 @@ import src.global.security.jwt.service.AccessTokenServiceImpl;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 	private final UserRepository userRepository;
-	private final AccessTokenServiceImpl accessTokenServiceImpl;
 
 	/**
 	 * 일반 로그인

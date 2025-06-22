@@ -1,22 +1,16 @@
 package src.global.security.token;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Date;
+import java.nio.charset.StandardCharsets;
 
 import lombok.RequiredArgsConstructor;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import src.global.security.config.JwtTokenConfig;
 import src.global.security.user.CustomUserDetailsService;
@@ -28,8 +22,8 @@ import src.global.security.user.CustomUserDetailsService;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-	private final CustomUserDetailsService customUserDetailsService;
 	private final JwtTokenConfig jwtTokenConfig;
+	private final CustomUserDetailsService customUserDetailsService;
 
 	// ✅ AccessToken용 키 생성
 	private Key getAccessTokenKey() {

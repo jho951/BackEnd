@@ -35,15 +35,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
 	private static final String REFRESH_PREFIX = "refresh_token:";
 
-	/**
-	 * 	설정 파일(application.yml 등)에서 secret key, 만료시간을 읽어와 내부에 저장
-	 */
-	@PostConstruct
-	public void init() {
-		TokenProperties refreshProps = jwtTokenConfig.getRefreshToken();
-		this.secretKey = Keys.hmacShaKeyFor(refreshProps.getSecretKey().getBytes(StandardCharsets.UTF_8));
-		this.expirationMillis = refreshProps.getExpirationSeconds() * 1000L;
-	}
+
 
 	// ✅ Refresh Token 생성 및 Redis 저장
 	@Transactional
