@@ -4,9 +4,7 @@ import javax.crypto.SecretKey;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.ExpiredJwtException;
 
 import src.global.base.constant.ErrorCode;
 import src.global.security.jwt.dto.JwtRequest;
@@ -55,7 +53,6 @@ public class JwtUtil {
 		return null;
 	}
 
-
 	// ✅ 서명 검증 + Claims 추출
 	public static Claims parseToken(String token, SecretKey key) {
 		return Jwts.parserBuilder()
@@ -65,19 +62,6 @@ public class JwtUtil {
 			.getBody();  // ← Payload (Claims) 반환
 	}
 
-	public static boolean validateToken(String token,  SecretKey secretKey) {
-		try {
-			JwtUtil.parseToken(token, secretKey);
-			return true;
-		} catch (ExpiredJwtException e) {
-			System.out.println("JWT 만료: " + e.getMessage());
-		} catch (JwtException e) {
-			System.out.println("JWT 유효하지 않음: " + e.getMessage());
-		} catch (Exception e) {
-			System.out.println("JWT 파싱 오류: " + e.getMessage());
-		}
-		return false;
-	}
 
 	// ✅ 토큰에서 사용자 ID 추출
 	public static String extractUserId(String token, SecretKey secretKey) {

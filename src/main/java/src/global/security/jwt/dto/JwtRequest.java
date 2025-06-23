@@ -12,6 +12,16 @@ import src.global.security.jwt.config.JwtTokenConfig;
 public class JwtRequest {
 
 	@Getter
+	@Setter
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public class JwtRequest {
+		private String username;
+		private String password;
+	}
+
+
+	@Getter
 	@Builder
 	@NoArgsConstructor
 	@AllArgsConstructor
