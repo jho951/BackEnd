@@ -40,7 +40,6 @@ public enum ErrorCode {
 	NOT_FOUND_USER(HttpStatus.NOT_FOUND, Boolean.FALSE, 9004, "요청하신 유저를 찾을 수 없습니다."),
 	FAIL(HttpStatus.BAD_REQUEST, Boolean.FALSE, 9999, "요청 응답 실패, 관리자에게 문의해주세요.");
 
-
 	private final HttpStatus httpStatus;
 	private final Boolean isSuccess;
 	private final int code;

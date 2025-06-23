@@ -15,8 +15,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import src.global.security.jwt.service.AccessTokenService;
-import src.global.security.token.JwtTokenProvider;
+import src.global.security.jwt.util.JwtUtil;
+import src.global.security.jwt.config.JwtKeyConfig;
+import src.global.security.jwt.service.TokenService;
 
 /**
  * OncePerRequestFilter // 요청마다 단 한 번만 실행되는 필터.
@@ -25,7 +26,8 @@ import src.global.security.token.JwtTokenProvider;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-	private final AccessTokenService accessTokenService;
+	private final TokenService tokenService;
+	private final JwtKeyConfig jwtKeyConfig;
 
 
 	@Override
@@ -35,11 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		throws ServletException, IOException {
 
 		// 토큰 추출
-		String token = accessTokenService.resolveToken(request);
+		String token = JwtUtil.resolveToken(request);
 		// 토큰 유효성 검사
-		if (token != null && accessTokenService.validateToken(token)) {
+		if (token != null && JwtUtil.validateToken(token, jwtKeyConfig.getAccessKey())) {
 			// 인증 객체 생성
-			Authentication auth = jwtTokenProvider.getAuthentication(token);
+			Authentication auth = tokenService.getAuthentication(token, jwtKeyConfig.getAccessKey());
 			// SecurityContext에 등록
 			SecurityContextHolder.getContext().setAuthentication(auth);
 		}

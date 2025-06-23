@@ -28,4 +28,15 @@ public class JwtResponse {
 	public static class JwtCreateRefreshTokenResponse{
 		private final String accessToken;
 	}
+
+	@Getter
+	@Builder
+	@AllArgsConstructor
+	public static class JwtSaveTokenResponse {
+		private String token;
+		private String tokenType;
+		private long expiresInMillis;
+	}
+
+
 }

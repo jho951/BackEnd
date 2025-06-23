@@ -1,4 +1,4 @@
-package src.global.security.config;
+package src.global.security.jwt.config;
 
 import java.util.HashMap;
 import java.util.Map;

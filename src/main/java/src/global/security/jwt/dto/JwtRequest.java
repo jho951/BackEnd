@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import src.global.security.config.JwtTokenConfig;
+import src.global.security.jwt.config.JwtTokenConfig;
 
 public class JwtRequest {
 
